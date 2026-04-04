@@ -121,6 +121,20 @@ Le pouvoir central atteint les limites de son expansion. Les guerres deviennent 
 - Angleterre : fin du règne d'Élisabeth (~1603) — succession aux Stuart
 - Venise : traité de Passarowitz (1718) — perte définitive de la Morée, dernière possession lointaine. Venise se replie sur le lagon et le Veneto.
 
+### Saillant : Remontrance (tournant impérialisme → Ancien Régime)
+
+La remontrance est la dernière tentative de la classe administrative, parlementaire ou aristocratique de reprendre des prérogatives au pouvoir absolu par les voies institutionnelles. Elle échoue systématiquement — et son échec marque l'entrée en Ancien Régime, en fermant la dernière voie de réforme.
+
+Le mécanisme est constant : les élites qui ont été intégrées à l'appareil absolutiste (noblesse de robe, parlementaires, patriciat) tentent de redistribuer le pouvoir en leur faveur. Elles n'ont pas la force de renverser l'exécutif (ce n'est pas une DGRO — elles n'ont pas d'assise territoriale), mais elles ont assez de poids institutionnel pour formuler une exigence formelle. L'exécutif écoute, puis ignore ou écrase la tentative.
+
+Ne pas confondre la remontrance avec une DGRO : la DGRO est une révolte armée des oligarques à base territoriale, qui constitue le dernier sursaut de la phase d'absolutisation. La remontrance intervient plus tard, une fois l'absolutisation accomplie — c'est une contestation institutionnelle, pas militaire.
+
+**Exemples :**
+- Angleterre : Apology of the Commons (1604) — les Communes affirment leurs prérogatives face à Jacques Ier. Ignorée.
+- France : Polysynodie (1715) — le Régent remplace les ministres par des conseils aristocratiques. Échoue en 1718.
+- Venise : Correzione de Querini (1761), Pisani-Contarini (1779) — tentatives de redistribuer le pouvoir au sein du patriciat. Écrasées par les Inquisiteurs.
+- Bavière : Landtag de 1848 — la classe parlementaire vote des réformes substantielles (suffrage, presse, responsabilité ministérielle). Maximilien II les vide de leur substance.
+
 ## Sous-phase 3 : Ancien Régime (~35 à 100 ans)
 
 Le pouvoir central arrive aux limites physiques de son potentiel d'expansion, jusqu'à épuisement des finances. L'ancienne aristocratie militaire perd sa légitimité, qui reposait sur les guerres victorieuses. La nouvelle aristocratie de robe, issue de la bourgeoisie ayant rejoint l'administration, se tourne vers l'investissement intensif dans le territoire national, déclenchant une forte croissance économique et le démarrage d'une alphabétisation de masse.

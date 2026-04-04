@@ -3,23 +3,37 @@
 ## Metadata
 - nation: France
 - territory: Île-de-France → royaume de France
-- start: ~1108
+- start: ~987
 - status: Phase parlementaire / technocratique
-- note: T0 = Louis VI (~1108). PO₁ = 1317 (loi salique). PO₂ = 1428 (Chinon, après reboot). Hugues Capet (987) est un précurseur.
+- subtitle: De l'Île-de-France au Roi-Soleil, sept siècles d'invention de l'État moderne
+- note: Le Parcours de référence du modèle historionomique. La France est le seul cas connu où la phase oligarchique avorte — le Traité de Troyes (1420) détruit le pacte de 1317 — puis reboot sur de nouvelles bases à Chinon (1428). La Révolution Nationale (1789-1830) traverse les sept étapes canoniques en quarante et un ans et sert de cas d'école pour l'ensemble du cadre.
 - confidence: medium
 
 ---
 
-## Pré-phase : Précurseurs capétiens (987-~1108)
-- type: note
-- description: Hugues Capet est élu roi par les grands féodaux en 987 et fonde la dynastie capétienne, mais son autorité reste purement nominale puisqu'il ne contrôle effectivement que l'Île-de-France. Les grands vassaux — duc de Normandie, comte de Flandre, duc d'Aquitaine — ne lui obéissent pas et disposent de territoires bien plus vastes que le domaine royal. Pendant cent vingt ans, les Capétiens survivent grâce au « miracle capétien », une succession mâle ininterrompue qui assure la continuité dynastique, mais sans jamais parvenir à exercer une autorité supra-régionale effective. Cette période constitue une incubation dynastique préalable au Parcours proprement dit, pas encore une phase féodale au sens historionomique.
+## Phase : Pré-féodale
+- type: phase
+- phase: prefeodale
+- start: ~987
+- end: 1108
+- title: Pré-féodale
+- summary: Cent vingt ans d'incubation dynastique capétienne. Le titre royal existe, mais le pouvoir effectif se limite à l'Île-de-France. Les grands vassaux ignorent le roi.
+- description: Hugues Capet est élu roi par les grands féodaux en 987 et fonde la dynastie capétienne, mais son autorité reste purement nominale puisqu'il ne contrôle effectivement que l'Île-de-France. Les grands vassaux — duc de Normandie, comte de Flandre, duc d'Aquitaine — ne lui obéissent pas et disposent de territoires bien plus vastes que le domaine royal. Pendant cent vingt ans, les Capétiens survivent grâce au « miracle capétien », une succession mâle ininterrompue qui assure la continuité dynastique, mais sans jamais parvenir à exercer une autorité supra-régionale effective.
+
+### Subphase : Percolation élitaire (~987-1108)
+- type: subphase
+- phase: prefeodale
+- start: ~987
+- end: 1108
+- title: Percolation élitaire
+- summary: Le pouvoir est fragmenté entre les grands vassaux. Les Capétiens survivent par la continuité dynastique mais ne structurent pas encore le jeu politique. La percolation s'achève quand Louis VI (~1108) est assez fort pour convoquer le ban et que les vassaux viennent.
 
 ---
 
 ## Phase : Féodale
 - type: phase
 - phase: feodale
-- start: ~1108
+- start: 1108
 - end: 1328
 - title: Phase féodale
 - typical_duration: ~200 ans
@@ -32,7 +46,7 @@
 ### Subphase : Coagulation des élites
 - type: subphase
 - phase: feodale
-- start: ~1108
+- start: 1108
 - end: 1314
 - title: Coagulation des élites
 - summary: De Louis VI à la mort de Philippe le Bel. Les élites capétiennes s'homogénéisent progressivement à travers deux pics féodaux (Philippe Auguste, Philippe le Bel) qui cristallisent l'opposition baronniale et répandent l'administration.
@@ -40,7 +54,7 @@
 
 #### Saillant : Éveil féodal
 - type: saillant
-- start: ~1108
+- start: 1108
 - figure: Louis VI le Gros
 - title: Éveil féodal
 - confidence: medium
@@ -60,7 +74,7 @@
 #### Saillant : Pic féodal
 - type: saillant
 - start: ~1250
-- figure: Louis IX (Saint Louis)
+- figure: Louis IX
 - title: Pic féodal
 - confidence: medium
 - summary: Louis IX porte le prestige personnel de la monarchie capétienne à un niveau sans égal en Europe — deux croisades, arbitre de la chrétienté, canonisé en 1297 — tout en étendant concrètement la présence de l'administration royale dans les provinces par ses enquêteurs.
@@ -97,6 +111,7 @@
 #### Saillant : Pacte oligarchique
 - type: saillant
 - start: 1317
+- figure: Loi salique
 - title: Pacte oligarchique
 - confidence: medium
 - summary: En 1317, Philippe V convoque les États généraux pour légitimer sa propre succession et fait codifier la loi salique, transformant pour la première fois les règles de succession d'une tradition dynastique en une loi explicite adoptée par la communauté politique.
@@ -141,7 +156,7 @@
 - type: perturbation
 - start: ~1346
 - end: ~1364
-- title: GCA : 1er reflux
+- title: Chevauchées d'Édouard III
 - summary: La chevalerie française est écrasée à Crécy en 1346 puis à Poitiers en 1356, où Jean II le Bon est capturé par les Anglais, plongeant le royaume dans le chaos pendant près de vingt ans avant que Charles V ne relance l'essor.
 - description: Le premier reflux de l'essor oligarchique est provoqué par deux défaites militaires majeures face aux Anglais. À Crécy en 1346, l'armée française est décimée par les archers gallois. Dix ans plus tard, à Poitiers en 1356, le roi Jean II le Bon est lui-même capturé, laissant le royaume sans chef face à la Peste Noire, aux Jacqueries paysannes et à la tentative de coup d'État d'Étienne Marcel. Le traité de Brétigny (1360), qui cède un tiers du royaume à l'Angleterre, marque le point bas. Mais les institutions centrales — la monarchie des Valois, le Parlement de Paris, l'administration fiscale — survivent intactes, et Charles V relance l'essor dès 1364.
 - affected_motor: Construction de l'État central
@@ -171,7 +186,8 @@
 - type: saillant
 - avortement: true
 - start: 1420
-- title: Avortement — Traité de Troyes
+- figure: Traité de Troyes
+- title: Avortement
 - confidence: high
 - summary: Le Traité de Troyes (21 mai 1420) annule la loi salique de 1317 en transférant la couronne de France à Henri V d'Angleterre, détruisant le pacte oligarchique qui fondait la phase.
 - description: Le Traité de Troyes, signé le 21 mai 1420, déshérite le Dauphin Charles et transfère la couronne à Henri V d'Angleterre par le mariage avec Catherine de Valois. Il est ratifié par les États généraux et le Parlement de Paris sous contrôle bourguignon — ce sont les institutions oligarchiques elles-mêmes qui détruisent leur propre pacte fondateur. La loi salique de 1317, qui codifiait les règles de succession adoptées collectivement par les élites, est explicitement renversée par les pairs de France. C'est la destruction formelle du pacte oligarchique. La phase est avortée — elle n'a jamais dépassé l'essor.
@@ -197,15 +213,16 @@
 ### Subphase : Reconstruction du PO
 - type: subphase
 - phase: oligarchique
-- start: ~1418
+- start: 1418
 - end: ~1429
-- title: Reconstruction du PO
+- title: Nouveau Pacte Oligarchique
 - summary: Entre 1418 et 1429, les élites méridionales reconstituent l'appareil d'État autour du Dauphin — Parlement de Poitiers, Chambre des comptes de Bourges, États généraux quasi annuels — et codifient leur soutien collectif aux États généraux de Chinon (1428). La victoire de Baugé (1421) donne au Dauphin sa crédibilité militaire. Le sacre de Reims (1429) parachève la légitimation.
 - description: La reconstruction du pacte oligarchique est un processus d'une dizaine d'années, porté par une classe dirigeante sociologiquement nouvelle — noblesse méridionale, bourgeoisie marchande montante, magistrats transfuges. Fait remarquable : le Dauphin commence à reconstruire l'appareil d'État *avant même* la destruction formelle du PO par le Traité de Troyes (1420). Dès septembre 1418, après la prise de Paris par les Bourguignons, il crée le Parlement de Poitiers par ordonnance, se concevant comme le Parlement de Paris en exil et revendiquant la continuité juridique (suprema curia). En décembre 1418, il se proclame régent à Bourges. C'est que l'effondrement des institutions est déjà en cours — la guerre civile, la prise de Paris, la purge des Armagnacs ont de facto détruit le cadre institutionnel du nord bien avant que Troyes ne l'entérine juridiquement. Le Dauphin ne reconstruit pas après la catastrophe : il reconstruit *pendant* la catastrophe, ce qui explique la rapidité du reboot. La Chambre des comptes est transférée en 1421. La bataille de Baugé (22 mars 1421) — première défaite anglaise en bataille rangée depuis Azincourt, où le duc de Clarence est tué — brise le mythe d'invincibilité anglaise et donne au Dauphin une crédibilité militaire. Des États généraux sont convoqués quasi annuellement (1423, 1424, 1425, 1427, 1428). Le moment décisif est les États généraux de Chinon (septembre 1428) : plus de 200 délégués — nobles, clergé, représentants des villes — votent 500 000 livres tournois et présentent 32 cahiers de doléances demandant une monnaie unifiée, des réformes commerciales et la répression du brigandage. C'est le nouveau pacte oligarchique : les élites codifient collectivement les conditions de leur obéissance. Le sacre à Reims en juillet 1429, rendu possible par les fonds votés à Chinon, parachève la légitimation.
 
 #### Saillant : Pacte oligarchique — États généraux de Chinon
 - type: saillant
 - start: 1428
+- figure: Chinon
 - title: Pacte oligarchique
 - confidence: medium
 - alternatives: On pourrait placer le PO plus tôt (proclamation de la régence, décembre 1418) ou plus tard (sacre à Reims, juillet 1429). Chinon est retenu parce que c'est le moment de consentement collectif codifié — 200+ délégués, 32 cahiers, vote fiscal.
@@ -215,7 +232,7 @@
 ### Subphase : Essor oligarchique
 - type: subphase
 - phase: oligarchique
-- start: ~1429
+- start: 1429
 - end: ~1530
 - title: Essor oligarchique
 - summary: Charles VII reconstruit l'appareil étatique avec une énergie remarquable — Pragmatique Sanction de Bourges (1438), taille permanente (1439), compagnies d'ordonnance (1445) — puis Louis XI centralise agressivement (soumission de la Bourgogne, rattachement de la Provence), et les Guerres d'Italie portent l'essor à son apogée sous François Ier.
@@ -223,7 +240,7 @@
 
 #### Saillant : 1er monarque oligarchique
 - type: saillant
-- start: ~1429
+- start: 1429
 - figure: Charles VII
 - title: 1er monarque oligarchique
 - confidence: high
@@ -259,7 +276,7 @@
 ### Subphase : Guerre sociale
 - type: subphase
 - phase: oligarchique
-- start: ~1562
+- start: 1562
 - end: 1598
 - title: Guerre sociale
 - summary: Les Guerres de Religion opposent la Ligue catholique aux Princes protestants dans un conflit qui déchire le royaume pendant trente-six ans, jusqu'à ce qu'Henri IV émerge comme le tiers capable de résoudre l'impasse en ne s'identifiant pleinement à aucune des deux factions.
@@ -267,8 +284,9 @@
 
 #### Saillant : Guerre sociale
 - type: saillant
-- start: ~1562
+- start: 1562
 - end: 1598
+- figure: Guerres de Religion
 - title: Guerre sociale
 - confidence: high
 - summary: Les Guerres de Religion constituent la guerre sociale de la France, un affrontement de trente-six ans entre la Ligue catholique et les Princes protestants dont ni l'une ni l'autre faction ne sort victorieuse, ce qui permet l'émergence d'Henri IV comme figure de compromis.
@@ -320,7 +338,7 @@
 ### Subphase : Impérialisme absolutiste
 - type: subphase
 - phase: absolutiste
-- start: ~1661
+- start: 1661
 - end: ~1715
 - title: Impérialisme absolutiste
 - summary: Louis XIV porte le pouvoir absolu à son apogée en domestiquant la noblesse à Versailles, en étendant le territoire français à son maximum et en imposant l'homogénéisation religieuse par la révocation de l'Édit de Nantes, avant que l'épuisement militaire et financier ne marque le début du déclin.
@@ -342,6 +360,15 @@
 - confidence: high
 - summary: Le Traité d'Utrecht en 1713 solde la Guerre de Succession d'Espagne par des pertes territoriales et la mort de Louis XIV en 1715 clôt l'ère de l'impérialisme absolutiste, ouvrant la longue période de sclérose de l'Ancien Régime.
 - description: Le Traité d'Utrecht de 1713 met fin à la Guerre de Succession d'Espagne dans des conditions défavorables pour la France, qui perd Terre-Neuve, l'Acadie et cède des territoires aux Pays-Bas. Les finances royales sont ruinées après des décennies de guerres coûteuses. La mort de Louis XIV en 1715 clôt symboliquement l'ère de l'expansion absolutiste. La Régence de Philippe d'Orléans desserre immédiatement l'étau du pouvoir central, et le système de Law (1716-1720), tentative audacieuse de résoudre la crise financière par l'innovation monétaire, s'effondre spectaculairement, révélant la fragilité structurelle du système. L'expansion ne fonctionne plus comme moteur de légitimation du pouvoir absolu : l'Ancien Régime commence.
+
+#### Saillant : Remontrance
+- type: saillant
+- start: 1715
+- figure: Polysynodie
+- title: Remontrance
+- confidence: high
+- summary: À la mort de Louis XIV (1715), le Régent Philippe d'Orléans remplace les ministres par des conseils aristocratiques (Polysynodie). La haute noblesse tente de reprendre des prérogatives à l'exécutif centralisé. L'expérience échoue en 1718 — la dernière voie de réforme institutionnelle est fermée, l'AR commence.
+- description: La Polysynodie (1715-1718) est la remontrance française. À la mort de Louis XIV, le Régent Philippe d'Orléans remplace le système ministériel centralisé par sept conseils (polysynodie) dominés par la haute noblesse — Conseil de Régence, Conseil de guerre, Conseil de finances, Conseil de marine, Conseil du dedans, Conseil de conscience, Conseil de commerce. C'est la tentative de la classe aristocratique de reprendre des prérogatives au pouvoir absolu en redistribuant le pouvoir exécutif. L'expérience échoue en 1718 : les conseils sont dissous et le système ministériel est rétabli. C'est structurellement identique à l'Apology of the Commons anglaise (1604), à la Correzione vénitienne (1761), et à la Polysynodie bavaroise (1848) : la classe administrative/aristocratique tente de prendre des prérogatives au monarque absolu et échoue. L'échec marque le passage de l'impérialisme absolutiste à l'Ancien Régime.
 
 ### Subphase : Ancien Régime
 - type: subphase

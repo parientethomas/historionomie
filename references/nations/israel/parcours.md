@@ -5,7 +5,8 @@
 - territory: Judée et Samarie (montagnes centrales du Levant)
 - start: ~-1100
 - status: Interrompu en 135 ; reprise au XIXe siècle (mouvement sioniste)
-- note: Parcours extrêmement perturbé — reboots, prolongement, transfert territorial, RN avortée
+- subtitle: Douze siècles de construction nationale, trois destructions, un peuple indestructible
+- note: Le Parcours le plus perturbé du corpus. Deux reboots majeurs (conquête babylonienne -586, destruction du Temple 70), un prolongement (conquête macédonienne -332), un transfert territorial (choc assyrien -722), et une RN avortée (Grande Révolte de 66-70, écrasée par Rome). Malgré ces chocs, le peuple juif reconstruit ses institutions à chaque fois — preuve que le Parcours est porté par un peuple, pas par un État.
 - confidence: high (cas de référence, article détaillé rédigé)
 
 ---

@@ -5,6 +5,8 @@
 - territory: Angleterre
 - start: ~829
 - status: Phase parlementaire
+- subtitle: L'île qui a inventé le parlementarisme
+- note: Cinq siècles de boucles féodales (829-1311) — l'hétérogénéité anglo-scandinave bloque le pacte — brisés net par le reboot normand de 1066. Le Parcours redémarre et aboutit au premier parlementarisme moderne du monde (Glorieuse Révolution, 1688). La Révolution Nationale anglaise (1642-1688) est la matrice du modèle.
 - confidence: medium
 
 ---
@@ -329,6 +331,15 @@
 - confidence: high
 - summary: La défaite de l'Armada espagnole en 1588, l'expansion coloniale et l'éclat culturel de l'ère shakespearienne portent le prestige de la monarchie absolutiste anglaise à son sommet, avant que la mort d'Élisabeth en 1603 n'ouvre la phase de déclin.
 - description: Le pic absolutiste anglais se situe vers 1588, autour de la défaite de l'Armada. Élisabeth Ière concentre entre ses mains un pouvoir considérable : elle contrôle l'Église anglicane en tant que gouverneur suprême, elle nomme et révoque les officiers royaux à sa guise, et elle domestique l'aristocratie par un système de patronage qui rend l'avancement social dépendant de la faveur royale. La victoire sur l'Armada en 1588 porte le prestige national à son sommet et renforce le sentiment d'exceptionnalisme anglais. Les premières expéditions coloniales — Raleigh en Virginie, Drake autour du monde — projettent la puissance anglaise outre-mer. L'éclat culturel de l'ère shakespearienne complète le tableau. Mais après 1588, le déclin s'amorce : les guerres d'Irlande s'enlisent, la révolte d'Essex en 1601 révèle les tensions au sein de l'élite, et l'absence d'héritier crée une incertitude dynastique qui ne sera résolue que par l'accession des Stuarts écossais en 1603.
+
+#### Saillant : Remontrance
+- type: saillant
+- start: 1604
+- figure: Apology of the Commons
+- title: Remontrance
+- confidence: high
+- summary: En 1604, la Chambre des communes rédige l'Apology of the Commons (Form of Apology and Satisfaction), affirmant ses prérogatives face à Jacques Ier Stuart — liberté de parole, immunité parlementaire, contrôle fiscal. La remontrance est ignorée par le roi. L'échec marque l'entrée dans l'AR.
+- description: L'Apology of the Commons (1604) est la remontrance anglaise. Rédigée dans la première année du règne de Jacques Ier, elle affirme que les libertés parlementaires ne sont pas des concessions royales mais des droits héréditaires. Les Communes revendiquent la liberté de parole, l'immunité des membres, le contrôle des élections et le consentement fiscal. Jacques Ier, formé dans la tradition absolutiste écossaise, ignore la remontrance. C'est structurellement identique à la Polysynodie française (1715), à la Correzione vénitienne (1761), et à la remontrance bavaroise (1848) : la classe parlementaire tente de prendre des prérogatives au monarque absolu et échoue. L'échec ferme la dernière voie de réforme institutionnelle et ouvre l'Ancien Régime.
 
 ### Subphase : Ancien Régime
 - type: subphase

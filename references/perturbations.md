@@ -94,6 +94,20 @@ Ce transfert le perturbe et l'allonge, mais ne l'interrompt pas.
 **Transfert de la Samarie vers la Judée (Israël, -722) :**
 Le choc assyrien anéantit le royaume d'Israël. Sa population fuit massivement vers le sud, en Judée — jusqu'alors pauvre et peu urbanisée. Le Parcours se poursuit en Judée : Jérusalem et la Judée connaissent un développement rapide (urbanisation accélérée, consolidation politique, signes d'une administration centrale inexistants avant l'arrivée des Samaritains). Le choc assyrien a allongé la durée de la phase oligarchique, mais ne l'a pas fait redémarrer — sans doute aidé en cela par la concentration des réfugiés sur un territoire réduit et peu peuplé.
 
+## Choc d'hétérogénéité
+
+Le choc d'hétérogénéité est le saillant qui marque le moment précis où une expansion territoriale ou un afflux de population hétérogénéise brutalement la société, déclenchant un prolongement. C'est le mécanisme déclencheur du prolongement — l'événement ponctuel qui fait basculer le ratio d'homogénéité.
+
+Le choc d'hétérogénéité peut avorter une sous-phase en cours. Si la société était en train d'entrer en Ancien Régime (stratification, sédimentation), l'hétérogénéisation défait cette stratification et relance la dynamique d'homogénéisation — ce qui peut reboote la sous-phase d'impérialisme absolutiste.
+
+### Exemples
+
+**Bavière (1806) :**
+Le doublement napoléonien du territoire (Franconie, Souabe) hétérogénéise brutalement une société bavaroise qui était en train d'entrer en Ancien Régime sous Charles-Théodore. L'intégration de populations franconniennes (protestantes) et souabes dans un État catholique bavarois relance la dynamique impérialiste sous forme modernisatrice (réformes Montgelas). Le choc avorte le premier AR et ouvre un second cycle d'impérialisme absolutiste.
+
+**Israël (-332) :**
+La conquête macédonienne hétérogénéise la société judéenne (hellénisation) sans détruire les institutions (le Grand Prêtre reste en fonction). Le Parcours stagne pendant ~192 ans le temps que les factions se recomposent autour des nouveaux clivages (Oniades vs Tobiades).
+
 ## Rébellion périphérique
 
 Certains événements qui peuvent avoir l'air importants pour le Parcours d'une nation relèvent en réalité du Parcours d'une supra-entité impériale. La rébellion périphérique est un phénomène que l'on retrouve avec une régularité frappante : à l'apogée absolutiste d'un empire, l'État central provoque à ses marges géographiques et culturelles les conditions de sa propre contestation.

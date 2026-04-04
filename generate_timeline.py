@@ -230,6 +230,7 @@ def parse_element(heading: str, body_lines: list) -> dict:
 # ---------------------------------------------------------------------------
 
 PHASE_COLORS = {
+    "prefeodale": "#A0A0A0",
     "feodale": "#8B7355",
     "oligarchique": "#2E8B57",
     "absolutiste": "#6A0DAD",
@@ -266,11 +267,14 @@ SAILLANT_ICONS = {
     "Liquidation définitive": "cancel",
     "Réduction d'échelle": "compress",
     "Magna Carta": "description",
+    "Remontrance": "record_voice_over",
+    "Choc d'hétérogénéité": "group_add",
 }
 SAILLANT_ICON_DEFAULT = "diamond"
 SAILLANT_ICON_AVORTEMENT = "cancel"
 
 PHASE_LABELS = {
+    "prefeodale": "Pré-féodale",
     "feodale": "Féodale",
     "oligarchique": "Oligarchique",
     "absolutiste": "Absolutiste",
@@ -376,14 +380,20 @@ def generate_html(data: dict) -> str:
 
     elements_js = "[" + ",".join(elements_json_parts) + "]"
 
-    # Pre-phase info
+    # Pre-phase info (legacy) + intro paragraph from note
     prephase_html = ""
-    if data.get("prephase"):
+    intro_note = data['metadata'].get('note', '')
+    if data.get("prephase") and not intro_note:
         pp = data["prephase"]
         prephase_html = f"""
         <div class="prephase-note">
             <strong>Pré-phase : {escape_html(pp['label'])}</strong><br>
             <span>{escape_html(pp['description'])}</span>
+        </div>"""
+    elif intro_note:
+        prephase_html = f"""
+        <div class="prephase-note">
+            {escape_html(intro_note)}
         </div>"""
 
     # Build phase bands HTML
@@ -407,12 +417,20 @@ def generate_html(data: dict) -> str:
         start_label = format_year(p["start"], p["start_approx"])
         end_label = format_year(p["end"], p["end_approx"]) if p["end"] else "en cours"
 
+        # Clean phase label: use title if it starts with "Pré-", otherwise canonical name
+        if p["title"].lower().startswith("pré-"):
+            phase_display = p["title"]
+        elif p["phase"] == "rn":
+            phase_display = "Révolution Nationale"
+        else:
+            phase_display = PHASE_LABELS.get(p["phase"], p["title"])
+
         phase_bands_html += f"""
         <div class="phase-band" style="left:{left_pct:.4f}%;width:{width_pct:.4f}%;
             background:{bg};border-top:3px {border_style} {color};border-right:1px solid #fff;"
             data-tooltip="&lt;strong&gt;{escape_html(p['title'])}&lt;/strong&gt; ({start_label} — {end_label})&#10;{escape_html(p['summary'])}"
             onclick="showDetail({elements.index(p)})">
-            <div class="phase-band-label" style="color:{color};">{escape_html(p['title'])}</div>
+            <div class="phase-band-label" style="color:{color};">{escape_html(phase_display)}</div>
             <div class="phase-band-dates">{start_label} — {end_label}</div>
         </div>"""
 
@@ -472,8 +490,8 @@ def generate_html(data: dict) -> str:
     # Assign stagger levels (0-4): default to row 0, bump down only if conflict
     # A saillant "occupies" a horizontal band of ~7% around its position
     MAX_ROWS = 6
-    ROW_HEIGHT = 65  # px per row
-    CONFLICT_RADIUS = 4  # % of timeline width — two saillants within this range conflict
+    ROW_HEIGHT = 80  # px per row
+    CONFLICT_RADIUS = 5  # % of timeline width — two saillants within this range conflict
 
     levels = []
     for i, (s, pct) in enumerate(dated_saillants):
@@ -555,6 +573,10 @@ def generate_html(data: dict) -> str:
 
     gen_date = date.today().strftime("%d/%m/%Y")
 
+    # Compute stats
+    phase_count = len([e for e in elements if e["kind"] == "phase"])
+    total_duration = timeline_end - timeline_start
+
     html = f"""<!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -563,24 +585,39 @@ def generate_html(data: dict) -> str:
 <title>Parcours — {escape_html(nation)}</title>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Public+Sans:wght@100..900&display=swap" rel="stylesheet">
 <style>
 * {{ margin:0; padding:0; box-sizing:border-box; }}
-body {{ font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background:#fafafa; color:#222; line-height:1.5; }}
+body {{ font-family: 'Public Sans', 'Segoe UI', system-ui, sans-serif; background:#f7f5f0; color:#1a1c1c; line-height:1.5; }}
+.font-headline {{ font-family: 'Newsreader', Georgia, serif; }}
+
+/* Navbar */
+.navbar {{ background:#fff; border-bottom:1px solid #e0dcd4; padding:0.6rem 2rem; display:flex; align-items:center; gap:2rem; }}
+.navbar-brand {{ font-family:'Newsreader', Georgia, serif; font-size:1.3rem; font-style:italic; color:#8B7355; text-decoration:none; font-weight:600; }}
+.navbar-links {{ display:flex; gap:1.2rem; }}
+.navbar-links a {{ text-decoration:none; font-size:0.85rem; color:#888; font-weight:500; }}
+.navbar-links a:hover {{ color:#333; }}
 
 /* Header */
-.header {{ background:#fff; border-bottom:1px solid #ddd; padding:1.2rem 2rem; }}
-.header h1 {{ font-size:1.6rem; color:#333; margin-bottom:0.3rem; }}
-.header .subtitle {{ font-size:0.95rem; color:#666; }}
-.header .meta-row {{ display:flex; flex-wrap:wrap; gap:1.5rem; margin-top:0.5rem; font-size:0.85rem; color:#555; }}
+.header {{ background:#fff; border-bottom:1px solid #e0dcd4; padding:1.5rem 2rem; }}
+.header-top {{ display:flex; justify-content:space-between; align-items:flex-start; gap:2rem; flex-wrap:wrap; }}
+.header-main {{ flex:1; }}
+.header h1 {{ font-family:'Newsreader', Georgia, serif; font-size:2.2rem; color:#1a1c1c; margin-bottom:0.3rem; font-weight:600; }}
+.header .subtitle {{ font-size:0.95rem; color:#888; font-style:italic; }}
+.header .meta-row {{ display:flex; flex-wrap:wrap; gap:1.5rem; margin-top:0.6rem; font-size:0.82rem; color:#555; }}
 .header .meta-row span {{ display:inline-flex; align-items:center; gap:0.3rem; }}
-.meta-label {{ font-weight:600; color:#444; }}
+.meta-label {{ font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#999; }}
+.stat-boxes {{ display:flex; gap:0.8rem; flex-shrink:0; }}
+.stat-box {{ border:1px solid #e0dcd4; border-radius:6px; padding:0.5rem 1rem; text-align:center; min-width:80px; background:#faf8f4; }}
+.stat-box .stat-label {{ font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#999; }}
+.stat-box .stat-value {{ font-family:'Newsreader', Georgia, serif; font-size:1.4rem; font-weight:600; color:#715b3e; }}
 
 /* Pre-phase note */
-.prephase-note {{ background:#f5f0e6; border-left:4px solid #bba87a; padding:0.8rem 1.2rem; margin:1rem 2rem; border-radius:0 4px 4px 0; font-size:0.9rem; color:#555; }}
+.prephase-note {{ background:#f5f0e6; border-left:4px solid #bba87a; padding:0.8rem 1.2rem; margin:1rem 2rem; border-radius:0 4px 4px 0; font-size:0.88rem; color:#555; }}
 .prephase-note strong {{ color:#7a6840; }}
 
 /* Timeline container */
-.timeline-wrapper {{ padding:1rem 2rem 0.5rem; overflow-x:auto; }}
+.timeline-wrapper {{ padding:1.5rem 2rem 0.5rem; overflow-x:auto; }}
 .timeline-container {{ position:relative; min-width:2800px; min-height:600px; margin-bottom:10px; }}
 
 /* Ticks */
@@ -593,52 +630,54 @@ body {{ font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; backgroun
     display:flex; flex-direction:column; justify-content:center; align-items:center; min-width:30px;
     transition: filter 0.15s; overflow:hidden; border:none; border-right:1px solid #fff; }}
 .phase-band:hover {{ filter:brightness(0.95); }}
-.phase-band-label {{ font-size:0.8rem; font-weight:700; text-align:center; max-width:95%;
-    overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; line-height:1.2; }}
-.phase-band-dates {{ font-size:0.65rem; color:#555; }}
+.phase-band-label {{ font-size:0.75rem; font-weight:700; text-align:center; max-width:95%;
+    overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; line-height:1.2;
+    text-transform:uppercase; letter-spacing:0.5px; }}
+.phase-band-dates {{ font-size:0.6rem; color:#555; }}
 
 /* Subphase bands */
 .subphase-band {{ position:absolute; top:100px; height:80px; border-radius:0; cursor:pointer;
     min-width:4px; transition: filter 0.15s; border-right:1px solid #fff;
     display:flex; align-items:center; justify-content:center; padding:2px; overflow:visible; }}
 .subphase-band:hover {{ filter:brightness(0.92); }}
-.subphase-label {{ font-size:0.7rem; font-weight:600; color:#333; text-align:center;
-    line-height:1.2; word-wrap:break-word; overflow-wrap:break-word; max-width:95%; }}
+.subphase-label {{ font-size:0.65rem; font-weight:600; color:#333; text-align:center;
+    line-height:1.2; word-wrap:break-word; overflow-wrap:break-word; max-width:95%;
+    text-transform:uppercase; letter-spacing:0.3px; }}
 .subphase-band.narrow .subphase-label {{ font-size:0.5rem; word-wrap:break-word;
     overflow-wrap:break-word; max-width:95%; }}
 .subphase-band.very-narrow .subphase-label {{ font-size:0.5rem; max-width:none; width:max-content;
     line-height:10px; overflow:visible; transform:rotate(-90deg); }}
 
 /* Perturbation overlay */
-.perturbation-overlay {{ position:absolute; top:18px; height:170px; cursor:pointer; border-radius:0;
+.perturbation-overlay {{ position:absolute; top:100px; height:80px; cursor:pointer; border-radius:0;
     background: repeating-linear-gradient(45deg, transparent, transparent 4px, rgba(200,50,50,0.08) 4px, rgba(200,50,50,0.08) 8px);
     border:1px dashed rgba(200,50,50,0.4); z-index:5; }}
 .perturbation-overlay:hover {{ background: repeating-linear-gradient(45deg, transparent, transparent 4px, rgba(200,50,50,0.15) 4px, rgba(200,50,50,0.15) 8px); }}
-.perturbation-label {{ font-size:0.6rem; color:#a33; font-weight:600; white-space:nowrap;
-    position:absolute; bottom:4px; left:0; right:0; text-align:center; }}
-.perturbation-overlay.narrow .perturbation-label {{ font-size:0.5rem; max-width:none; width:max-content;
-    line-height:10px; overflow:visible; transform:rotate(-90deg); transform-origin:left;
-    left:50%; white-space:normal; }}
+.perturbation-label {{ font-size:0.5rem; color:#a33; font-weight:600;
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) rotate(-90deg);
+    pointer-events:none; letter-spacing:0.3px; width:100%; text-align:center; }}
+.perturbation-overlay.narrow .perturbation-label {{ font-size:0.45rem; }}
 
 /* Pre-phase band */
 .prephase-band {{ position:absolute; top:20px; height:70px; background:rgba(180,170,150,0.15); border:1px dashed #bba87a;
     border-radius:6px; display:flex; align-items:center; justify-content:center; }}
 .prephase-band-label {{ font-size:0.75rem; color:#998866; font-weight:600; }}
 
-/* Saillant markers */
+/* Saillant markers — diamond shape */
 .saillant-group {{ position:absolute; top:150px; z-index:10; }}
 .saillant-marker {{ width:24px; height:24px; cursor:pointer; border-radius:50%;
     margin-left:-12px; transition:transform 0.15s; display:flex; align-items:center;
-    justify-content:center; box-shadow:0 1px 3px rgba(0,0,0,0.3); }}
-.saillant-marker:hover {{ transform:scale(1.2); }}
-.saillant-marker .material-icons, .saillant-marker .material-symbols-outlined {{ font-size:14px; color:#fff; }}
-.saillant-label {{ position:absolute; top:28px; left:-40px; width:80px; text-align:center;
+    justify-content:center; box-shadow:0 2px 6px rgba(0,0,0,0.2); }}
+.saillant-marker:hover {{ transform:scale(1.15); box-shadow:0 3px 10px rgba(0,0,0,0.25); }}
+.saillant-marker .material-icons, .saillant-marker .material-symbols-outlined {{ font-size:12px; color:#fff; }}
+.saillant-label {{ position:absolute; top:30px; left:-45px; width:90px; text-align:center;
     line-height:1.15; pointer-events:none; }}
-.saillant-label .saillant-title {{ font-size:0.5rem; font-weight:800; text-transform:uppercase;
-    letter-spacing:-0.02em; color:#333; display:block; }}
-.saillant-label .saillant-figure {{ font-size:0.6rem; color:#555; display:block; }}
-.saillant-label .saillant-date {{ font-size:0.5rem; color:#888; display:block; }}
+.saillant-label .saillant-title {{ font-size:0.55rem; font-weight:800; text-transform:uppercase;
+    letter-spacing:0.02em; color:#333; display:block; }}
+.saillant-label .saillant-figure {{ font-size:0.6rem; color:#666; display:block; }}
+.saillant-label .saillant-date {{ font-size:0.55rem; color:#999; display:block; font-weight:600; }}
 .saillant-marker.avortement {{ background:#c0392b !important; }}
+.saillant-marker.selected {{ box-shadow:0 0 0 4px #fff, 0 4px 12px rgba(0,0,0,0.3); }}
 
 /* Tooltip */
 .tooltip {{ position:fixed; background:#333; color:#fff; padding:8px 12px; border-radius:6px;
@@ -646,36 +685,74 @@ body {{ font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; backgroun
     line-height:1.4; box-shadow:0 2px 8px rgba(0,0,0,0.3); display:none; }}
 .tooltip strong {{ color:#fff; font-weight:700; }}
 
-/* Detail panel */
-.detail-overlay {{ position:fixed; top:0; right:0; bottom:0; left:0; background:rgba(0,0,0,0.3);
+/* Detail panel — Stitch style */
+.detail-overlay {{ position:fixed; top:0; right:0; bottom:0; left:0; background:rgba(0,0,0,0.2);
     z-index:500; display:none; }}
-.detail-panel {{ position:fixed; top:0; right:0; bottom:0; width:min(480px,90vw); background:#fff;
-    box-shadow:-4px 0 20px rgba(0,0,0,0.15); z-index:501; overflow-y:auto; padding:2rem;
-    display:none; }}
+.detail-panel {{ position:fixed; top:0; right:0; bottom:0; width:min(400px,92vw);
+    background:rgba(243,243,243,0.95); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+    box-shadow:-4px 0 24px rgba(0,0,0,0.08); z-index:501; overflow-y:auto;
+    display:none; border-left:1px solid rgba(209,196,185,0.3); }}
 .detail-panel.open {{ display:block; }}
 .detail-overlay.open {{ display:block; }}
-.detail-close {{ position:absolute; top:1rem; right:1rem; background:none; border:none;
-    font-size:1.5rem; cursor:pointer; color:#666; line-height:1; }}
-.detail-close:hover {{ color:#333; }}
-.detail-title {{ font-size:1.3rem; font-weight:700; margin-bottom:0.3rem; padding-right:2rem; }}
-.detail-kind {{ display:inline-block; font-size:0.7rem; font-weight:600; padding:2px 8px;
-    border-radius:10px; color:#fff; margin-bottom:0.8rem; }}
-.detail-meta {{ font-size:0.85rem; color:#555; margin-bottom:1rem; }}
-.detail-meta div {{ margin-bottom:0.3rem; }}
-.detail-description {{ font-size:0.9rem; line-height:1.6; color:#333; margin-bottom:1rem;
-    border-left:3px solid #ddd; padding-left:1rem; }}
-.detail-section {{ margin-bottom:0.8rem; }}
-.detail-section-title {{ font-size:0.75rem; font-weight:700; color:#888; text-transform:uppercase;
-    letter-spacing:0.5px; margin-bottom:0.3rem; }}
-.detail-section p {{ font-size:0.85rem; color:#444; line-height:1.5; }}
 
-.confidence-badge {{ display:inline-block; padding:2px 8px; border-radius:10px; font-size:0.7rem; font-weight:600; }}
-.confidence-high {{ background:#d4edda; color:#155724; border:1px solid #28a745; }}
-.confidence-medium {{ background:#fff3cd; color:#856404; border:1px dashed #ffc107; }}
-.confidence-low {{ background:#f8d7da; color:#721c24; border:1px dotted #dc3545; }}
+/* Panel header */
+.detail-panel-header {{ padding:1.2rem 1.5rem; border-bottom:1px solid rgba(209,196,185,0.2); }}
+.detail-panel-header-top {{ display:flex; align-items:center; justify-content:space-between; margin-bottom:0.8rem; }}
+.detail-panel-title {{ font-family:'Newsreader', Georgia, serif; font-size:1.15rem; font-weight:600; color:#1a1c1c; }}
+.detail-close {{ background:none; border:none; cursor:pointer; color:#7f756b; font-size:1.2rem; padding:4px; }}
+.detail-close:hover {{ color:#1a1c1c; }}
+
+.detail-badges {{ display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap; }}
+.detail-kind {{ display:inline-flex; align-items:center; gap:4px; font-size:0.6rem; font-weight:700; padding:4px 10px;
+    border-radius:20px; color:#fff; text-transform:uppercase; letter-spacing:0.8px; }}
+.confidence-badge {{ display:inline-flex; align-items:center; gap:4px; padding:4px 10px; border-radius:20px;
+    font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; }}
+.confidence-high {{ background:rgba(0,99,151,0.1); color:#006397; }}
+.confidence-medium {{ background:rgba(113,91,62,0.1); color:#715b3e; }}
+.confidence-low {{ background:rgba(186,26,26,0.1); color:#ba1a1a; }}
+
+/* Panel content */
+.detail-panel-content {{ padding:1.5rem; }}
+.detail-panel-content > section {{ margin-bottom:1.5rem; }}
+
+.detail-section-label {{ font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:1px;
+    color:#7f756b; margin-bottom:0.3rem; display:block; }}
+.detail-title {{ font-family:'Newsreader', Georgia, serif; font-size:1.7rem; font-weight:500;
+    color:#1a1c1c; line-height:1.25; padding-right:1rem; }}
+.detail-subtitle {{ font-family:'Newsreader', Georgia, serif; font-style:italic; color:#8B7355;
+    font-size:1rem; margin-top:0.3rem; line-height:1.4; }}
+
+/* Data cards grid */
+.detail-cards {{ display:grid; grid-template-columns:1fr 1fr; gap:0.6rem; }}
+.detail-card {{ background:#fff; border-radius:10px; padding:0.8rem 1rem; }}
+.detail-card .detail-section-label {{ margin-bottom:0.2rem; }}
+.detail-card-value {{ font-family:'Newsreader', Georgia, serif; font-size:1.05rem; color:#1a1c1c; }}
+
+/* Figure card */
+.detail-figure {{ display:flex; align-items:center; gap:0.8rem; background:rgba(226,226,226,0.5);
+    border-radius:10px; padding:0.8rem 1rem; }}
+.detail-figure-portrait {{ width:52px; height:52px; border-radius:50%; object-fit:cover; flex-shrink:0;
+    filter:grayscale(80%) contrast(1.1) brightness(0.95); }}
+.detail-figure-icon {{ width:52px; height:52px; border-radius:50%; background:#d1c4b9;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; }}
+.detail-figure-icon .material-icons {{ font-size:22px; color:#574329; }}
+.detail-figure-info {{ flex:1; }}
+.detail-figure-info .detail-section-label {{ margin-bottom:0; }}
+.detail-figure-name {{ font-weight:600; color:#1a1c1c; font-size:0.95rem; }}
+.detail-figure-role {{ font-size:0.78rem; color:#7f756b; }}
+
+/* Synthèse */
+.detail-section {{ margin-bottom:1.2rem; }}
+.detail-section p {{ font-size:0.88rem; color:#4d453c; line-height:1.7; }}
+.detail-description {{ font-size:0.88rem; line-height:1.7; color:#4d453c; }}
+
+.detail-meta {{ font-size:0.82rem; color:#4d453c; margin-bottom:1rem; }}
+.detail-meta div {{ margin-bottom:0.3rem; }}
+
+.detail-divider {{ border:none; border-top:1px solid rgba(209,196,185,0.3); margin:1.2rem 0; }}
 
 /* Legend */
-.legend {{ padding:0.8rem 2rem; display:flex; flex-wrap:wrap; gap:1.2rem; align-items:center; border-top:1px solid #eee; background:#fff; }}
+.legend {{ padding:0.8rem 2rem; display:flex; flex-wrap:wrap; gap:1.2rem; align-items:center; border-top:1px solid #e0dcd4; background:#f7f5f0; }}
 .legend-title {{ font-size:0.8rem; font-weight:700; color:#555; }}
 .legend-item {{ display:inline-flex; align-items:center; gap:0.4rem; font-size:0.75rem; color:#444; }}
 .legend-swatch {{ width:16px; height:16px; border-radius:3px; flex-shrink:0; }}
@@ -685,7 +762,7 @@ body {{ font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; backgroun
 .legend-conf {{ display:inline-block; width:24px; height:14px; border-radius:3px; flex-shrink:0; }}
 
 /* Footer */
-.footer {{ text-align:center; padding:1rem; font-size:0.75rem; color:#999; border-top:1px solid #eee; margin-top:1rem; }}
+.footer {{ text-align:center; padding:1rem; font-size:0.75rem; color:#999; border-top:1px solid #e0dcd4; margin-top:1rem; background:#fff; }}
 
 /* Mobile */
 @media (max-width: 768px) {{
@@ -700,14 +777,35 @@ body {{ font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; backgroun
 </head>
 <body>
 
+<nav class="navbar">
+    <a class="navbar-brand" href="index.html">Historionomie</a>
+    <div class="navbar-links">
+        <a href="index.html">Accueil</a>
+        <a href="index.html#wiki">Wiki</a>
+    </div>
+</nav>
+
 <div class="header">
-    <h1>Parcours de construction nationale — {escape_html(nation)}</h1>
-    <div class="subtitle">{escape_html(data['title'])}</div>
-    <div class="meta-row">
-        {"<span><span class='meta-label'>Hypothèse :</span> " + escape_html(hypothesis) + "</span>" if hypothesis else ""}
-        {"<span><span class='meta-label'>Territoire :</span> " + escape_html(territory) + "</span>" if territory else ""}
-        {"<span><span class='meta-label'>Statut :</span> " + escape_html(status) + "</span>" if status else ""}
-        {"<span><span class='meta-label'>Confiance :</span> " + escape_html(meta_confidence) + "</span>" if meta_confidence else ""}
+    <div class="header-top">
+        <div class="header-main">
+            <h1>{escape_html(nation)}</h1>
+            <div class="subtitle">{escape_html(data['metadata'].get('subtitle', '') or data['title'])}</div>
+            <div class="meta-row">
+                {"<span><span class='meta-label'>Territoire</span> " + escape_html(territory) + "</span>" if territory else ""}
+                {"<span><span class='meta-label'>Statut</span> " + escape_html(status) + "</span>" if status else ""}
+            </div>
+        </div>
+        <div class="stat-boxes">
+            <div class="stat-box">
+                <div class="stat-label">Durée totale</div>
+                <div class="stat-value">{total_duration}</div>
+                <div class="stat-label">ans</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Phases</div>
+                <div class="stat-value">{phase_count}</div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -734,8 +832,8 @@ body {{ font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; backgroun
 <div class="tooltip" id="tooltip"></div>
 <div class="detail-overlay" id="detailOverlay" onclick="closeDetail()"></div>
 <div class="detail-panel" id="detailPanel">
-    <button class="detail-close" onclick="closeDetail()">&times;</button>
-    <div id="detailContent"></div>
+    <div class="detail-panel-header" id="detailHeader"></div>
+    <div class="detail-panel-content" id="detailContent"></div>
 </div>
 
 <div class="footer">
@@ -801,41 +899,207 @@ function showDetail(idx) {{
     if (e.end !== null) dates += ' — ' + formatYear(e.end, e.end_approx);
     else if (e.kind === 'phase') dates += ' — en cours';
 
-    let html = `<div class="detail-title">${{e.title}}</div>`;
-    html += `<span class="detail-kind" style="background:${{color}}">${{kindLabel}}</span>`;
-    if (e.phase) html += ` <span style="font-size:0.75rem;color:#666;">${{phaseLabel}}</span>`;
-    if (e.step) html += ` <span style="font-size:0.75rem;color:#888;">(étape ${{e.step}})</span>`;
+    // Figure portrait images (Wikimedia Commons, public domain)
+    const figureImages = {{
+        'Louis VI le Gros': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Louis_VI_of_France.jpg/200px-Louis_VI_of_France.jpg',
+        'Louis IX': 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Saintlouis_%28cropped%29.jpg/200px-Saintlouis_%28cropped%29.jpg',
+        'Philippe le Bel': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Philip_iv_and_family._2_%28detail_crop%29.jpg/200px-Philip_iv_and_family._2_%28detail_crop%29.jpg',
+        'Philippe Auguste': 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Sceau_de_Philippe_Auguste._-_Archives_Nationales_-_SC-D157.jpg/200px-Sceau_de_Philippe_Auguste._-_Archives_Nationales_-_SC-D157.jpg',
+        'Philippe VI': 'https://upload.wikimedia.org/wikipedia/commons/9/93/Phil6france.jpg',
+        'François Ier': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Fran%C3%A7ois_Ier_Louvre.jpg/200px-Fran%C3%A7ois_Ier_Louvre.jpg',
+        'Henri IV': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Frans_Pourbus_the_Younger_%28Antwerp_1569_-_Paris_1622%29_-_Henri_IV%2C_King_of_France_%281553-1610%29_-_RCIN_402972_-_Royal_Collection.jpg/200px-Frans_Pourbus_the_Younger_%28Antwerp_1569_-_Paris_1622%29_-_Henri_IV%2C_King_of_France_%281553-1610%29_-_RCIN_402972_-_Royal_Collection.jpg',
+        'Louis XIV': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Portrait_of_Louis_XIV_of_France_in_Coronation_Robes_%28by_Hyacinthe_Rigaud%29_-_Louvre_Museum.jpg/200px-Portrait_of_Louis_XIV_of_France_in_Coronation_Robes_%28by_Hyacinthe_Rigaud%29_-_Louvre_Museum.jpg',
+        'Bonaparte': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Jacques-Louis_David_-_The_Emperor_Napoleon_in_His_Study_at_the_Tuileries_-_Google_Art_Project.jpg/200px-Jacques-Louis_David_-_The_Emperor_Napoleon_in_His_Study_at_the_Tuileries_-_Google_Art_Project.jpg',
+        'Henri VII': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Enrique_VII_de_Inglaterra%2C_por_un_artista_an%C3%B3nimo.jpg/200px-Enrique_VII_de_Inglaterra%2C_por_un_artista_an%C3%B3nimo.jpg',
+        'Henri VIII': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/After_Hans_Holbein_the_Younger_-_Portrait_of_Henry_VIII_-_Google_Art_Project.jpg/200px-After_Hans_Holbein_the_Younger_-_Portrait_of_Henry_VIII_-_Google_Art_Project.jpg',
+        'Élisabeth Ière': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Darnley_stage_3.jpg/200px-Darnley_stage_3.jpg',
+        'Oliver Cromwell': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Oliver_Cromwell_by_Samuel_Cooper.jpg/200px-Oliver_Cromwell_by_Samuel_Cooper.jpg',
+        'Cromwell': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Oliver_Cromwell_by_Samuel_Cooper.jpg/200px-Oliver_Cromwell_by_Samuel_Cooper.jpg',
+        'Saül': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Saul_1878.jpg/200px-Saul_1878.jpg',
+        'Salomon': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Simeon_Solomon%2C_King_Solomon%2C_1872_or_1874%2C_NGA_76152_%28cropped%29.jpg/200px-Simeon_Solomon%2C_King_Solomon%2C_1872_or_1874%2C_NGA_76152_%28cropped%29.jpg',
+        'Hérode': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Herode-el-Grande.jpg/200px-Herode-el-Grande.jpg',
+        'Maximilien Ier': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Joachim_von_Sandrart_-_Maximilian_I%2C_Elector_of_Bavaria.jpg/200px-Joachim_von_Sandrart_-_Maximilian_I%2C_Elector_of_Bavaria.jpg',
+        'Max-Emmanuel': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/M%C3%B6ller_-_Maximilian_II_Emanuel_of_Bavaria_-_Torre_Abbey.png/200px-M%C3%B6ller_-_Maximilian_II_Emanuel_of_Bavaria_-_Torre_Abbey.png',
+        'Maximilien III Joseph': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Maximilian_III_Joseph_of_Bavaria_by_Georges_Desmar%C3%A9es.jpg/200px-Maximilian_III_Joseph_of_Bavaria_by_Georges_Desmar%C3%A9es.jpg',
+        'Louis Ier': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Joseph_Karl_Stieler_-_King_Ludwig_I_in_his_Coronation_Robes_-_WGA21796.jpg/200px-Joseph_Karl_Stieler_-_King_Ludwig_I_in_his_Coronation_Robes_-_WGA21796.jpg',
+        'Kurt Eisner': 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/KurtEisner1919.jpg/200px-KurtEisner1919.jpg',
+        'Francesco Foscari': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/%28Venice%29_Portrait_of_the_Venecian_doge_Francesco_Foscari_by_Lazzaro_Bastiani_-_Correr_Museum.jpg/200px-%28Venice%29_Portrait_of_the_Venecian_doge_Francesco_Foscari_by_Lazzaro_Bastiani_-_Correr_Museum.jpg',
+        'Francesco Morosini': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Portrait_of_Doge_Francesco_Morosini_%281619%E2%80%931694%29%2C_half-length%2C_in_armour_.jpg/200px-Portrait_of_Doge_Francesco_Morosini_%281619%E2%80%931694%29%2C_half-length%2C_in_armour_.jpg',
+        'Daniele Manin': 'https://upload.wikimedia.org/wikipedia/commons/0/06/Daniele_Manin.jpg',
+        'La Fronde': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Combat_du_faubourg_Saint-Antoine_%282_July_1652%3B_French_School%2C_17th_century%29.jpg/200px-Combat_du_faubourg_Saint-Antoine_%282_July_1652%3B_French_School%2C_17th_century%29.jpg',
+        'Guillaume le Conquérant': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/William_I_of_England.jpg/200px-William_I_of_England.jpg',
+        'Édouard Ier': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Edwardus_I_-_British_Library_Royal_20_A_ii_f10_%28detail%29.jpg/200px-Edwardus_I_-_British_Library_Royal_20_A_ii_f10_%28detail%29.jpg',
+        'Édouard III': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Edward_III_%28de_Bruges%29.jpg/200px-Edward_III_%28de_Bruges%29.jpg',
+    }};
 
-    html += `<div class="detail-meta">`;
-    html += `<div><strong>Dates :</strong> ${{dates}}</div>`;
-    if (e.figure) html += `<div><strong>Figure :</strong> ${{e.figure}}</div>`;
-    if (e.confidence) html += `<div><strong>Confiance :</strong> <span class="confidence-badge ${{confClass}}">${{confLabel}}</span></div>`;
-    if (e.deviation) html += `<div><strong>Déviation :</strong> ${{e.deviation}}</div>`;
-    if (e.typical_duration) html += `<div><strong>Durée typique :</strong> ${{e.typical_duration}}</div>`;
-    if (e.perturbation_type) html += `<div><strong>Type :</strong> ${{e.perturbation_type}}</div>`;
-    if (e.affected_motor) html += `<div><strong>Moteur affecté :</strong> ${{e.affected_motor}}</div>`;
-    html += `</div>`;
+    // Concept descriptions for subtitles
+    const concepts = {{
+        'Éveil féodal': 'Premier chef dont l\\'autorité supra-régionale est effective',
+        'Pic féodal': 'Roi fort au sommet de sa puissance personnelle',
+        'Crise féodale': 'Effondrement du système personnel du suzerain',
+        'Pacte oligarchique': 'Les oligarques codifient collectivement la structure de l\\'exécutif',
+        '1er monarque oligarchique': 'Premier souverain disposant d\\'un État central permanent',
+        'Pic oligarchique': 'Pic de puissance et de prestige de la phase oligarchique',
+        'Fin de l\\'expansion': 'L\\'expansion extérieure cesse, les tensions internes prennent le relais',
+        'Guerre sociale': 'Conflit factieux résolu par le triomphe de l\\'État central',
+        '1er monarque absolu': 'Figure qui résout la guerre sociale et concentre le pouvoir',
+        'Dernière grande révolte oligarchique': 'Dernier sursaut armé des oligarques contre l\\'exécutif',
+        'Pic absolutiste': 'Sommet de la puissance absolutiste — prestige et expansion maximaux',
+        'Remontrance': 'Tentative institutionnelle de reprendre des prérogatives au pouvoir absolu',
+        'Explosion de l\\'AR': 'L\\'Ancien Régime perd sa légitimité et sa capacité financière',
+        'Expérience parlementaire': 'On expérimente le parlementarisme après le renversement de l\\'ancien ordre',
+        'Phase aiguë': 'L\\'extrême-gauche prend le contrôle et élimine les modérés',
+        'Moment thermidorien': 'Le centre reprend le pouvoir et purge l\\'extrême-gauche',
+        'Impérialiste Revanchard': 'Figure autoritaire qui renoue avec la verticalité du pouvoir',
+        'Glorieuse Révolution': 'Réplique qui ancre définitivement le parlementarisme',
+        'Écrasement': 'La Révolution Nationale est interrompue avant d\\'aboutir',
+        'Choc d\\'hétérogénéité': 'Expansion territoriale qui hétérogénéise brutalement la société',
+        'Avortement': 'Phase interrompue avant sa résolution naturelle',
+        'Absorption dans le Parcours allemand': 'Le Parcours bavarois est absorbé dans le Parcours allemand',
+    }};
+    const conceptSubtitle = concepts[e.title] || '';
 
-    if (e.summary) {{
-        html += `<div class="detail-section"><div class="detail-section-title">Résumé</div><p>${{e.summary}}</p></div>`;
+    // === HEADER ===
+    let headerHtml = `<div class="detail-panel-header-top">`;
+    headerHtml += `<span class="detail-panel-title">Détails du ${{kindLabel.toLowerCase()}}</span>`;
+    headerHtml += `<button class="detail-close" onclick="closeDetail()"><span class="material-symbols-outlined">close</span></button>`;
+    headerHtml += `</div>`;
+    headerHtml += `<div class="detail-badges">`;
+    headerHtml += `<span class="detail-kind" style="background:${{color}}">${{phaseLabel}}</span>`;
+    if (e.confidence) headerHtml += `<span class="confidence-badge ${{confClass}}">Confiance : ${{confLabel}}</span>`;
+    headerHtml += `</div>`;
+    document.getElementById('detailHeader').innerHTML = headerHtml;
+
+    // === CONTENT ===
+    let html = '';
+
+    // Title section
+    html += `<section>`;
+    html += `<span class="detail-section-label">Nom de l'événement</span>`;
+    html += `<div class="detail-title">${{e.title}}</div>`;
+    if (conceptSubtitle) html += `<div class="detail-subtitle">${{conceptSubtitle}}</div>`;
+    html += `</section>`;
+
+    // Data cards — adapted for phases/subphases vs saillants
+    const isPhaseOrSub = (e.kind === 'phase' || e.kind === 'subphase');
+    html += `<section><div class="detail-cards">`;
+    if (isPhaseOrSub) {{
+        // Separate start/end for phases
+        const startLabel = formatYear(e.start, e.start_approx);
+        const endLabel = e.end !== null ? formatYear(e.end, e.end_approx) : 'en cours';
+        html += `<div class="detail-card"><div class="detail-section-label">Début</div><div class="detail-card-value">${{startLabel}}</div></div>`;
+        html += `<div class="detail-card"><div class="detail-section-label">Fin</div><div class="detail-card-value">${{endLabel}}</div></div>`;
+    }} else {{
+        html += `<div class="detail-card"><div class="detail-section-label">Date</div><div class="detail-card-value">${{dates}}</div></div>`;
+        if (e.perturbation_type) {{
+            html += `<div class="detail-card"><div class="detail-section-label">Type</div><div class="detail-card-value">${{e.perturbation_type}}</div></div>`;
+        }} else {{
+            html += `<div class="detail-card"><div class="detail-section-label">${{kindLabel}}</div><div class="detail-card-value">${{phaseLabel}}</div></div>`;
+        }}
     }}
+    html += `</div></section>`;
+
+    // Duration section for phases/subphases
+    if (isPhaseOrSub && e.start !== null && e.end !== null) {{
+        const duration = e.end - e.start;
+
+        // Parse typical duration to compute deviation
+        let typicalYears = null;
+        let deviationPct = 0;
+        let deviationStatus = '';  // 'normal', 'short', 'long'
+        let deviationColor = '#2e7d32';  // green by default
+        let deviationLabel = 'Dans la norme';
+        let deviationIcon = 'check_circle';
+
+        if (e.typical_duration) {{
+            const m = e.typical_duration.match(/(\\d+)/);
+            if (m) {{
+                typicalYears = parseInt(m[1]);
+                deviationPct = Math.round(((duration - typicalYears) / typicalYears) * 100);
+                if (deviationPct > 20) {{
+                    deviationStatus = 'long';
+                    deviationColor = '#e65100';
+                    deviationLabel = `+${{deviationPct}}% — plus longue que la norme`;
+                    deviationIcon = 'trending_up';
+                }} else if (deviationPct < -20) {{
+                    deviationStatus = 'short';
+                    deviationColor = '#1565c0';
+                    deviationLabel = `${{deviationPct}}% — plus courte que la norme`;
+                    deviationIcon = 'trending_down';
+                }} else {{
+                    deviationLabel = `${{deviationPct > 0 ? '+' : ''}}${{deviationPct}}% — dans la norme`;
+                }}
+            }}
+        }}
+
+        html += `<section><div class="detail-cards">`;
+        html += `<div class="detail-card"><div class="detail-section-label">Durée observée</div><div class="detail-card-value">~${{duration}} ans</div></div>`;
+        if (typicalYears) {{
+            html += `<div class="detail-card"><div class="detail-section-label">Durée typique</div><div class="detail-card-value" style="color:#7f756b;">~${{typicalYears}} ans</div></div>`;
+        }}
+        html += `</div></section>`;
+
+        if (typicalYears) {{
+            html += `<section><div style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:8px;background:${{deviationColor}}10;color:${{deviationColor}};font-size:0.78rem;font-weight:600;">`;
+            html += `<span class="material-symbols-outlined" style="font-size:16px;">${{deviationIcon}}</span>`;
+            html += `${{deviationLabel}}`;
+            html += `</div></section>`;
+        }}
+    }}
+
+    // Figure card with portrait
+    if (e.figure) {{
+        const imgUrl = figureImages[e.figure] || null;
+        html += `<section><div class="detail-figure">`;
+        if (imgUrl) {{
+            html += `<img src="${{imgUrl}}" alt="${{e.figure}}" class="detail-figure-portrait" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">`;
+            html += `<div class="detail-figure-icon" style="display:none;"><span class="material-icons">person</span></div>`;
+        }} else {{
+            html += `<div class="detail-figure-icon"><span class="material-icons">person</span></div>`;
+        }}
+        html += `<div class="detail-figure-info">`;
+        html += `<span class="detail-section-label">Figure clé</span>`;
+        html += `<div class="detail-figure-name">${{e.figure}}</div>`;
+        html += `</div></div></section>`;
+    }}
+
+    // Synthèse historique
+    if (e.summary) {{
+        html += `<section>`;
+        html += `<span class="detail-section-label">Synthèse historique</span>`;
+        html += `<p>${{e.summary}}</p>`;
+        html += `</section>`;
+    }}
+
+    // Description détaillée
     if (e.description) {{
-        html += `<div class="detail-section"><div class="detail-section-title">Description</div><div class="detail-description">${{e.description}}</div></div>`;
+        html += `<section>`;
+        html += `<span class="detail-section-label">Analyse détaillée</span>`;
+        html += `<div class="detail-description">${{e.description}}</div>`;
+        html += `</section>`;
+    }}
+
+    // Metadata supplémentaires
+    if (e.deviation) {{
+        html += `<section><span class="detail-section-label">Déviation</span><p style="color:#715b3e;">${{e.deviation}}</p></section>`;
+    }}
+    if (e.affected_motor) {{
+        html += `<section><span class="detail-section-label">Moteur affecté</span><p>${{e.affected_motor}}</p></section>`;
     }}
     if (e.alternatives) {{
-        html += `<div class="detail-section"><div class="detail-section-title">Alternatives</div><p style="font-style:italic;color:#666;">${{e.alternatives}}</p></div>`;
+        html += `<section><span class="detail-section-label">Alternatives envisagées</span><p style="font-style:italic;">${{e.alternatives}}</p></section>`;
     }}
-    if (e.note) {{
-        html += `<div class="detail-section"><div class="detail-section-title">Note</div><p style="color:#666;">${{e.note}}</p></div>`;
-    }}
+
+    // Résolution
     if (e.resolution) {{
         const isAborted = e.resolution.startsWith('AVORTÉE');
-        const resColor = isAborted ? '#c0392b' : '#27ae60';
+        const resColor = isAborted ? '#ba1a1a' : '#2e7d32';
         const resIcon = isAborted ? '✗' : '✓';
-        html += `<div class="detail-section"><div class="detail-section-title">Résolution ${{resIcon}}</div><p style="color:${{resColor}};font-weight:600;">${{e.resolution}}</p></div>`;
+        html += `<hr class="detail-divider">`;
+        html += `<section><span class="detail-section-label">Résolution ${{resIcon}}</span><p style="color:${{resColor}};font-weight:600;">${{e.resolution}}</p></section>`;
     }}
     if (e.resolution_conditions) {{
-        html += `<div class="detail-section"><div class="detail-section-title">Conditions de résolution</div><p style="color:#555;">${{e.resolution_conditions}}</p></div>`;
+        html += `<section><span class="detail-section-label">Conditions de résolution</span><p>${{e.resolution_conditions}}</p></section>`;
     }}
 
     content.innerHTML = html;

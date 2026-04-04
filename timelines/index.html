@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Historionomie — Parcours de construction nationale</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Public+Sans:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Public Sans', system-ui, sans-serif; background:#f9f9f9; color:#1a1c1c; line-height:1.6; }
+.font-headline { font-family:'Newsreader', Georgia, serif; }
+.material-symbols-outlined { font-variation-settings:'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+
+/* Navbar */
+.navbar { background:#f9f9f9; position:sticky; top:0; z-index:50; display:flex; justify-content:space-between; align-items:center; padding:1rem 2rem; border-bottom:1px solid rgba(209,196,185,0.3); }
+.navbar-brand { font-family:'Newsreader', serif; font-size:1.5rem; font-weight:600; font-style:italic; color:#8B7355; text-decoration:none; }
+.navbar-links { display:flex; gap:1.5rem; }
+.navbar-links a { text-decoration:none; font-size:0.9rem; font-weight:500; color:#888; transition:color 0.2s; }
+.navbar-links a:hover { color:#8B7355; }
+.navbar-links a.active { color:#8B7355; font-weight:700; border-bottom:2px solid #8B7355; padding-bottom:2px; }
+
+.container { max-width:1100px; margin:0 auto; padding:0 2rem; }
+
+/* Hero */
+.hero { padding:5rem 0 4rem; max-width:800px; }
+.hero h1 { font-family:'Newsreader', serif; font-size:3.2rem; font-weight:600; color:#1a1c1c; line-height:1.15; margin-bottom:1.2rem; }
+.hero p { font-size:1.15rem; color:#4d453c; line-height:1.7; max-width:640px; font-weight:300; }
+.hero-buttons { display:flex; gap:1rem; margin-top:2.5rem; }
+.btn-primary { background:#715b3e; color:#fff; padding:0.75rem 2rem; border-radius:6px; border:none; font-size:0.95rem; font-weight:600; cursor:pointer; text-decoration:none; transition:opacity 0.2s; box-shadow:0 4px 12px rgba(113,91,62,0.2); }
+.btn-primary:hover { opacity:0.9; }
+.btn-secondary { background:transparent; border:1px solid rgba(127,117,107,0.25); color:#4d453c; padding:0.75rem 2rem; border-radius:6px; font-size:0.95rem; font-weight:600; cursor:pointer; text-decoration:none; transition:background 0.2s; }
+.btn-secondary:hover { background:#f3f3f3; }
+
+/* Section headers */
+.section-header { display:flex; justify-content:space-between; align-items:flex-end; border-bottom:1px solid rgba(209,196,185,0.2); padding-bottom:1rem; margin-bottom:2rem; }
+.section-header h2 { font-family:'Newsreader', serif; font-size:1.6rem; font-weight:500; }
+.section-header .count { font-size:0.8rem; font-weight:500; color:#999; text-transform:uppercase; letter-spacing:1.5px; }
+
+/* Nation grid */
+.nation-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:1.5rem; margin-bottom:4rem; }
+.nation-card { background:#fff; border-radius:8px; overflow:hidden; border:1px solid rgba(209,196,185,0.3); box-shadow:0 1px 3px rgba(0,0,0,0.04); transition:box-shadow 0.2s, transform 0.2s; text-decoration:none; color:inherit; display:flex; flex-direction:column; }
+.nation-card:hover { box-shadow:0 4px 16px rgba(0,0,0,0.08); transform:translateY(-2px); }
+.nation-card-img { height:180px; overflow:hidden; position:relative; }
+.nation-card-img img { width:100%; height:100%; object-fit:cover; filter:grayscale(100%); transition:filter 0.5s; }
+.nation-card:hover .nation-card-img img { filter:grayscale(0%); }
+.nation-card-badge { position:absolute; top:12px; right:12px; font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; padding:4px 10px; border-radius:20px; }
+.badge-complete { background:#8B7355; color:#fff; }
+.badge-draft { background:#e2e2e2; color:#666; }
+.nation-card-body { padding:1.3rem 1.5rem; flex:1; display:flex; flex-direction:column; }
+.nation-card-body .nation-icon { display:flex; align-items:center; gap:0.5rem; margin-bottom:0.4rem; }
+.nation-flag { height:16px; width:auto; border-radius:2px; box-shadow:0 0 0 1px rgba(0,0,0,0.08); }
+.nation-card-body h3 { font-family:'Newsreader', serif; font-size:1.2rem; font-weight:600; }
+.nation-card-body .dates { font-size:0.85rem; color:#888; font-style:italic; margin-bottom:0.6rem; }
+.nation-card-body .desc { font-size:0.85rem; color:#666; line-height:1.6; }
+
+/* Methodology section */
+.methodology { margin:3rem 0 5rem; display:grid; grid-template-columns:1fr; gap:2rem; }
+.methodology-card { background:#f3f3f3; border-radius:12px; padding:2.5rem; }
+.methodology-card h2 { font-family:'Newsreader', serif; font-size:1.8rem; font-weight:600; margin-bottom:1.5rem; }
+
+/* Phase timeline (vertical) */
+.phase-steps { display:flex; flex-direction:column; gap:0; }
+.phase-step { display:flex; gap:1rem; }
+.phase-step-dot { display:flex; flex-direction:column; align-items:center; gap:0; flex-shrink:0; width:20px; }
+.phase-step-dot .dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.phase-step-dot .line { width:1px; flex:1; background:rgba(209,196,185,0.4); }
+.phase-step-content { padding-bottom:1.5rem; }
+.phase-step-content h4 { font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:0.2rem; }
+.phase-step-content p { font-size:0.85rem; color:#666; }
+
+/* Collapsible saillants in wiki */
+.wiki-section { margin-bottom:4rem; }
+/* Wiki — Stitch-inspired phase cards */
+.phase-card { background:#fff; box-shadow:0 12px 32px rgba(26,28,28,0.06); border-radius:8px; padding:2rem; margin-bottom:2rem; }
+.phase-card h2 { font-family:'Newsreader', serif; font-size:1.3rem; font-weight:600; }
+.phase-card > p { font-size:0.9rem; color:#666; margin-bottom:1.5rem; }
+.sub-phase-block { margin-bottom:1.5rem; }
+.sub-phase-title { display:flex; align-items:center; gap:0.5rem; margin-bottom:0.3rem; }
+.sub-phase-title .dash { width:16px; height:2px; flex-shrink:0; }
+.sub-phase-title h4 { font-size:0.95rem; font-weight:600; color:#333; }
+.sub-phase-block > p { font-size:0.85rem; color:#666; margin-left:1.5rem; margin-bottom:0.8rem; }
+.saillant-list { margin-left:1.5rem; display:flex; flex-direction:column; gap:0.4rem; }
+details summary::-webkit-details-marker { display:none; }
+details[open] summary .expand-icon { transform:rotate(90deg); }
+.saillant-details { background:#f3f3f3; border-radius:6px; padding:0.6rem 0.8rem; }
+.saillant-details summary { display:flex; align-items:center; justify-content:space-between; cursor:pointer; list-style:none; }
+.saillant-details summary .saillant-left { display:flex; align-items:center; gap:0.6rem; }
+.saillant-details summary .saillant-left .material-symbols-outlined { font-size:1.1rem; }
+.saillant-details summary .saillant-left span:last-child { font-size:0.85rem; font-weight:700; }
+.saillant-details summary .expand-icon { font-size:1.1rem; color:#999; transition:transform 0.2s; }
+.saillant-details .saillant-body { margin-top:0.8rem; padding-top:0.8rem; border-top:1px solid rgba(209,196,185,0.3); }
+.saillant-details .saillant-body p { font-size:0.82rem; color:#555; line-height:1.6; margin-bottom:0.6rem; }
+.saillant-details .saillant-body table { width:100%; border-collapse:collapse; font-size:0.75rem; }
+.saillant-details .saillant-body th { background:#eee; padding:0.3rem 0.5rem; text-align:left; font-weight:600; color:#555; text-transform:uppercase; letter-spacing:0.5px; font-size:0.65rem; }
+.saillant-details .saillant-body td { padding:0.3rem 0.5rem; border-bottom:1px solid #eee; color:#555; }
+.cell-empty { color:#ccc; }
+table { width:100%; border-collapse:collapse; margin:0.8rem 0 0.3rem; font-size:0.78rem; }
+th, td { padding:0.35rem 0.5rem; border:1px solid #e0dcd4; text-align:left; vertical-align:top; }
+th { background:#f5f3ef; font-weight:600; color:#333; white-space:nowrap; }
+td { color:#555; }
+td:first-child { font-weight:600; color:#333; white-space:nowrap; }
+.cell-empty { color:#ccc; font-weight:400; }
+
+/* Footer */
+.footer { border-top:1px solid rgba(209,196,185,0.15); padding:3rem 0; text-align:center; }
+.footer p { font-size:0.82rem; color:#999; font-style:italic; margin-bottom:1rem; }
+.footer-icons { display:flex; justify-content:center; gap:1.5rem; }
+.footer-icons a { color:#999; text-decoration:none; transition:color 0.2s; }
+.footer-icons a:hover { color:#715b3e; }
+
+@media (max-width:768px) {
+    .hero h1 { font-size:2.2rem; }
+    .nation-grid { grid-template-columns:1fr; }
+    .hero-buttons { flex-direction:column; }
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="navbar-brand" href="index.html">Historionomie</a>
+    <div class="navbar-links">
+        <a class="active" href="#">Accueil</a>
+        <a href="#wiki">Wiki</a>
+    </div>
+</nav>
+
+<div class="container">
+
+<!-- Hero -->
+<section class="hero">
+    <h1>Parcours de construction nationale</h1>
+    <p>Visualisation de l'analyse historique comparative de Philippe Fabry. Explorez les cycles de construction et de transformation des nations à travers le temps.</p>
+    <div class="hero-buttons">
+        <a class="btn-primary" href="#nations">Débuter l'exploration</a>
+        <a class="btn-secondary" href="#wiki">Méthodologie</a>
+    </div>
+</section>
+
+<!-- Nations -->
+<section id="nations">
+    <div class="section-header">
+        <h2>Nations étudiées</h2>
+        <span class="count">5 entités</span>
+    </div>
+    <div class="nation-grid">
+        <a class="nation-card" href="france.html">
+            <div class="nation-card-img">
+                <img alt="France — Versailles, Pierre Patel (1668)" src="https://commons.wikimedia.org/wiki/Special:FilePath/Chateau_de_Versailles_1668_Pierre_Patel.jpg?width=640">
+                <span class="nation-card-badge badge-complete">Complet</span>
+            </div>
+            <div class="nation-card-body">
+                <div class="nation-icon"><img class="nation-flag" alt="France" src="https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_France_(1794–1815,_1830–1974,_2020–present).svg?width=30"><h3>France</h3></div>
+                <div class="dates">~987 à 1830</div>
+                <div class="desc">De l'Île-de-France au Roi-Soleil, sept siècles d'invention de l'État moderne. Le Parcours de référence du modèle historionomique.</div>
+            </div>
+        </a>
+        <a class="nation-card" href="angleterre.html">
+            <div class="nation-card-img">
+                <img alt="Angleterre — Turner, Burning of Parliament" src="https://commons.wikimedia.org/wiki/Special:FilePath/Turner-The_Burning_of_the_Houses_of_Lords_and_Commons.jpg?width=640">
+                <span class="nation-card-badge badge-complete">Complet</span>
+            </div>
+            <div class="nation-card-body">
+                <div class="nation-icon"><img class="nation-flag" alt="Angleterre" src="https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_England.svg?width=30"><h3>Angleterre</h3></div>
+                <div class="dates">~829 à 1688</div>
+                <div class="desc">Cinq siècles de boucles féodales brisés par la conquête normande, puis un Parcours complet qui invente le parlementarisme moderne.</div>
+            </div>
+        </a>
+        <a class="nation-card" href="israel.html">
+            <div class="nation-card-img">
+                <img alt="Israël — Destruction du Temple, Hayez" src="https://commons.wikimedia.org/wiki/Special:FilePath/Francesco_Hayez_017.jpg?width=640">
+                <span class="nation-card-badge badge-complete">Complet</span>
+            </div>
+            <div class="nation-card-body">
+                <div class="nation-icon"><img class="nation-flag" alt="Israël" src="https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Israel.svg?width=30"><h3>Israël antique</h3></div>
+                <div class="dates">~-1080 à 135</div>
+                <div class="desc">Le Parcours le plus perturbé du corpus — reboots, prolongement, transfert territorial — et pourtant le peuple survit à chaque destruction.</div>
+            </div>
+        </a>
+        <a class="nation-card" href="venise.html">
+            <div class="nation-card-img">
+                <img alt="Venise — Canaletto, Entrée du Grand Canal" src="https://commons.wikimedia.org/wiki/Special:FilePath/Canaletto_-_The_Entrance_to_the_Grand_Canal,_Venice_-_Google_Art_Project.jpg?width=640">
+                <span class="nation-card-badge badge-draft">Brouillon</span>
+            </div>
+            <div class="nation-card-body">
+                <div class="nation-icon"><img class="nation-flag" alt="Venise" src="https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Most_Serene_Republic_of_Venice.svg?width=30"><h3>Venise</h3></div>
+                <div class="dates">~726 à 1866</div>
+                <div class="desc">Du lagon des réfugiés à la Sérénissime, onze siècles sans roi — où l'absolutisme est porté par une institution, pas par un homme.</div>
+            </div>
+        </a>
+        <a class="nation-card" href="baviere.html">
+            <div class="nation-card-img">
+                <img alt="Bavière — Nymphenburg, Bellotto (~1761)" src="https://commons.wikimedia.org/wiki/Special:FilePath/Bernardo_Bellotto_and_Workshop,_Nymphenburg_Palace,_Munich,_c._1761,_NGA_46162.jpg?width=640">
+                <span class="nation-card-badge badge-draft">Brouillon</span>
+            </div>
+            <div class="nation-card-body">
+                <div class="nation-icon"><img class="nation-flag" alt="Bavière" src="https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Bavaria_(lozengy).svg?width=30"><h3>Bavière</h3></div>
+                <div class="dates">~1180 à 1919</div>
+                <div class="desc">Sept siècles de Wittelsbach, de la forêt bavaroise à l'Athènes sur l'Isar — un Parcours avorté par l'absorption dans l'Empire allemand.</div>
+            </div>
+        </a>
+    </div>
+</section>
+
+<!-- Methodology teaser -->
+<section class="methodology">
+    <div class="methodology-card">
+        <h2>Les phases du Parcours</h2>
+        <p style="color:#4d453c; margin-bottom:2rem;">Toute nation traverse une succession de phases obligées. Deux moteurs alimentent cette progression : la construction de l'État central et l'homogénéisation culturelle.</p>
+        <div class="phase-steps">
+            <div class="phase-step">
+                <div class="phase-step-dot"><span class="dot" style="background:#A0A0A0;"></span><span class="line"></span></div>
+                <div class="phase-step-content">
+                    <h4 style="color:#A0A0A0;">Percolation</h4>
+                    <p>Le pouvoir est distribué entre des micro-pouvoirs locaux sans centre. Au seuil critique, un chemin continu se forme : un chef émerge qui force les autres à se positionner par rapport à lui.</p>
+                </div>
+            </div>
+            <div class="phase-step">
+                <div class="phase-step-dot"><span class="dot" style="background:#8B7355;"></span><span class="line"></span></div>
+                <div class="phase-step-content">
+                    <h4 style="color:#8B7355;">Féodale (~200 ans)</h4>
+                    <p>Interconnexion des réseaux claniques et lignagers. Le pouvoir repose sur des liens personnels de vassalité — il se fragmente à chaque succession difficile. Pics et crises alternent jusqu'à ce que les oligarques codifient collectivement la structure de l'exécutif.</p>
+                </div>
+            </div>
+            <div class="phase-step">
+                <div class="phase-step-dot"><span class="dot" style="background:#2E8B57;"></span><span class="line"></span></div>
+                <div class="phase-step-content">
+                    <h4 style="color:#2E8B57;">Oligarchique (~200 ans)</h4>
+                    <p>Émergence puis victoire du pouvoir administratif sur les réseaux féodaux. L'État central se dote d'un impôt permanent, d'une armée permanente, d'une administration. L'affrontement entre classe prébendière et classe patrimoniale se résout par le triomphe d'un tiers qui subordonne les deux factions à l'appareil central.</p>
+                </div>
+            </div>
+            <div class="phase-step">
+                <div class="phase-step-dot"><span class="dot" style="background:#6A0DAD;"></span><span class="line"></span></div>
+                <div class="phase-step-content">
+                    <h4 style="color:#6A0DAD;">Absolutiste (~200 ans)</h4>
+                    <p>Achèvement de l'élimination des réseaux féodaux et oligarchiques par le pouvoir central. L'administration acquiert une supériorité incontestée. Impérialisme, domestication des élites, puis sédimentation et sclérose de l'Ancien Régime — jusqu'à ce que le système devienne insoutenable.</p>
+                </div>
+            </div>
+            <div class="phase-step">
+                <div class="phase-step-dot"><span class="dot" style="background:#D4A017;"></span><span class="line"></span></div>
+                <div class="phase-step-content">
+                    <h4 style="color:#D4A017;">Révolution Nationale (~25-80 ans)</h4>
+                    <p>Renversement de l'ordre absolutiste. Le bloc contestataire (extrême-droite + extrême-gauche) fait tomber le bloc élitaire. Explosion, expérience parlementaire, phase aiguë, figure autoritaire, puis la Glorieuse Révolution ancre définitivement le parlementarisme.</p>
+                </div>
+            </div>
+            <div class="phase-step">
+                <div class="phase-step-dot"><span class="dot" style="background:#1E90FF;"></span><span class="line" style="background:transparent;"></span></div>
+                <div class="phase-step-content">
+                    <h4 style="color:#1E90FF;">Parlementaire</h4>
+                    <p>Subordination du pouvoir administratif à la représentation nationale. La chambre basse est la source ultime du pouvoir. Aboutissement du Parcours de construction nationale.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Wiki Section -->
+<section id="wiki" class="wiki-section">
+    <div class="section-header">
+        <h2>Référentiel des saillants</h2>
+        <span class="count">Par phase</span>
+    </div>
+
+    <!-- ==================== FÉODALE ==================== -->
+    <div class="phase-card" style="border-left:4px solid #8B7355;">
+        <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.6rem;"><span style="width:10px;height:10px;border-radius:50%;background:#8B7355;flex-shrink:0;"></span><h2 style="color:#8B7355;">Phase féodale</h2></div>
+        <p>Interconnexion des réseaux claniques et lignagers. Le pouvoir repose sur des liens personnels de vassalité — il se fragmente à chaque succession difficile. Durée typique : ~200 ans (peut boucler et durer beaucoup plus).</p>
+        <div style="padding-left:1.5rem;border-left:1px solid #e0dcd4;">
+            <div class="sub-phase-block"><div class="sub-phase-title"><span class="dash" style="background:#8B7355;"></span><h4>Percolation</h4></div><p>Le pouvoir est distribué entre des micro-pouvoirs locaux sans centre. Au seuil critique de percolation (théorie des systèmes dynamiques), un chemin continu se forme : un chef émerge qui force les autres à se positionner.</p>
+            <div class="saillant-list">
+                <details class="saillant-details"><summary><span class="saillant-left"><span class="material-symbols-outlined" style="color:#8B7355;">wb_sunny</span><span>Éveil féodal</span></span><span class="material-symbols-outlined expand-icon">chevron_right</span></summary><div class="saillant-body"><p>Le premier chef dont l'autorité supra-régionale est <strong>effective</strong> — pas un simple titre, mais un pouvoir réel qui structure le jeu politique.</p><table><tr><th>Israël</th><th>France</th><th>Angleterre</th><th>Venise</th><th>Bavière</th></tr><tr><td>Saül (~-1080)</td><td>Louis VI (1108)</td><td>Guillaume (1066)</td><td>Orso Ipato (~726)</td><td>Louis Ier (~1204)</td></tr></table></div></details>
+            </div></div>
+            <div class="sub-phase-block"><div class="sub-phase-title"><span class="dash" style="background:#8B7355;"></span><h4>Coagulation des élites</h4></div><p>Après l'éveil, il y a un centre. Les élites se « coagulent » autour du suzerain ou contre lui. Pics féodaux (rois forts) et crises féodales (effondrements post-pic) alternent. Chaque pic accélère l'homogénéisation. Chaque crise teste si le seuil du pacte est atteint.</p>
+            <div class="saillant-list">
+                <details class="saillant-details"><summary><span class="saillant-left"><span class="material-symbols-outlined" style="color:#8B7355;">terrain</span><span>Pic féodal</span></span><span class="material-symbols-outlined expand-icon">chevron_right</span></summary><div class="saillant-body"><p>Roi fort au sommet de sa puissance personnelle. Il projette la puissance et cristallise l'opposition. Son édifice est personnel et fragile.</p><table><tr><th>Israël</th><th>France</th><th>Angleterre</th><th>Venise</th><th>Bavière</th></tr><tr><td>Salomon (~-960)</td><td>Phil. le Bel (~1295)</td><td>Édouard Ier (~1295)</td><td>Orseolo (~991)</td><td>Louis IV (~1328)</td></tr></table></div></details>
+                <details class="saillant-details"><summary><span class="saillant-left"><span class="material-symbols-outlined" style="color:#ba1a1a;">bolt</span><span>Crise féodale</span></span><span class="material-symbols-outlined expand-icon">chevron_right</span></summary><div class="saillant-body"><p>Effondrement du système personnel. Si les conditions du pacte ne sont pas réunies, le Parcours <strong>boucle</strong> — affiché en rouge sur les frises.</p></div></details>
+            </div></div>
+            <div class="sub-phase-block"><div class="sub-phase-title"><span class="dash" style="background:#8B7355;"></span><h4>Bascule oligarchique</h4></div><p>Le pacte ne survient que quand deux conditions sont réunies simultanément (Deblonde) : <strong>homogénéité des oligarques</strong> à l'échelle du royaume + <strong>moment de faiblesse du suzerain</strong>.</p>
+            <div class="saillant-list">
+                <details class="saillant-details"><summary><span class="saillant-left"><span class="material-symbols-outlined" style="color:#8B7355;">gavel</span><span>Pacte oligarchique</span></span><span class="material-symbols-outlined expand-icon">chevron_right</span></summary><div class="saillant-body"><p>Pour la première fois, les oligarques codifient collectivement la structure de l'exécutif.</p><table><tr><th>Israël</th><th>France</th><th>Angleterre</th><th>Venise</th><th>Bavière</th></tr><tr><td class="cell-empty">—</td><td>Loi salique (1317)</td><td>Ordonnances (1311)</td><td>Abol. co-rég. (1032)</td><td>Primogéniture (1506)</td></tr></table></div></details>
+            </div></div>
+        </div>
+    </div>
+
+    <!-- ==================== OLIGARCHIQUE ==================== -->
+    <div class="phase-card" style="border-left:4px solid #2E8B57;">
+        <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.6rem;"><span style="width:10px;height:10px;border-radius:50%;background:#2E8B57;flex-shrink:0;"></span><h2 style="color:#2E8B57;">Phase oligarchique</h2></div>
+        <p>Émergence puis victoire du pouvoir administratif sur les réseaux féodaux. L'État central se dote d'un impôt permanent, d'une armée permanente, d'une administration. Durée typique : ~200 ans.</p>
+        <div style="padding-left:1.5rem;border-left:1px solid #e0dcd4;">
+            <div class="sub-phase-block"><div class="sub-phase-title"><span class="dash" style="background:#2E8B57;"></span><h4>Essor oligarchique</h4></div><p>Les oligarques dotent l'exécutif d'un pouvoir suffisant pour arbitrer leurs conflits. Codification du droit, protection de la propriété, croissance économique.</p>
+            <div class="saillant-list">
+                <details class="saillant-details"><summary><span class="saillant-left"><span class="material-symbols-outlined" style="color:#2E8B57;">stars</span><span>1er monarque oligarchique</span></span><span class="material-symbols-outlined expand-icon">chevron_right</span></summary><div class="saillant-body"><p>Premier souverain disposant d'un État central — impôt permanent, armée permanente, administration.</p><table><tr><th>Israël</th><th>France</th><th>Angleterre</th><th>Venise</th><th>Bavière</th></tr><tr><td>Omri (-885)</td><td>Philippe VI (1328)</td><td>Édouard III (1327)</td><td>Contarini (~1043)</td><td>Guillaume IV (~1508)</td></tr></table></div></details>
+                <details class="saillant-details"><summary><span class="saillant-left"><span class="material-symbols-outlined" style="color:#2E8B57;">terrain</span><span>Pic oligarchique</span></span><span class="material-symbols-outlined expand-icon">chevron_right</span></summary><div class="saillant-body"><p>Pic de puissance et de prestige de la phase.</p><table><tr><th>Israël</th><th>France</th><th>Angleterre</th><th>Venise</th><th>Bavière</th></tr><tr><td>Jéroboam II (~-770)</td><td>François Ier (~1515)</td><td>Édouard III (~1350)</td><td>Foscari (~1440)</td><td>Albert V (~1555)</td></tr></table></div></details>
+                <details class="saillant-details"><summary><span class="saillant-left"><span class="material-symbols-outlined" style="color:#2E8B57;">block</span><span>Fin de l'expansion</span></span><span class="material-symbols-outlined expand-icon">chevron_right</span></summary><div class="saillant-body"><p>L'expansion extérieure cesse, les tensions internes prennent le relais.</p><table><tr><th>Israël</th><th>France</th><th>Angleterre</th><th>Venise</th><th>Bavière</th></tr><tr><td>~-746</td><td>Cateau-Cambrésis (1559)</td><td class="cell-empty">—</td><td>Agnadello (1509)</td><td class="cell-empty">—</td></tr></table></div></details>
+            </div></div>
+            <div class="sub-phase-block"><div class="sub-phase-title"><span class="dash" style="background:#2E8B57;"></span><h4>Polarisation des élites</h4></div><p>La classe prébendière et la classe patrimoniale se polarisent. Les élites patrimoniales se rallient à l'administration, abandonnant leurs clientèles rurales.</p></div>
+            <div class="sub-phase-block"><div class="sub-phase-title"><span class="dash" style="background:#2E8B57;"></span><h4>Guerre sociale</h4></div><p>Le conflit nécessaire entre factions. Ne se résout pas par la victoire d'une faction mais par le <strong>triomphe de l'État central</strong> sur les deux.</p>
+            <div class="saillant-list">
+                <details class="saillant-details"><summary><span class="saillant-left"><span class="material-symbols-outlined" style="color:#2E8B57;">local_fire_department</span><span>Guerre sociale</span></span><span class="material-symbols-outlined expand-icon">chevron_right</span></summary><div class="saillant-body"><p>Le conflit factieux qui conclut la phase. Peut prendre la forme d'une guerre ou de tensions institutionnelles.</p><table><tr><th>Israël</th><th>France</th><th>Angleterre</th><th>Venise</th><th>Bavière</th></tr><tr><td>-700 à -641</td><td>G. de Religion (~1562-98)</td><td>Deux-Roses (~1455-85)</td><td>~1628-1669</td><td>~1564-1597</td></tr></table></div></details>
+            </div></div>
+        </div>
+    </div>
+
+    <!-- ==================== ABSOLUTISTE ==================== -->
+    <div class="phase-card" style="border-left:4px solid #6A0DAD;">
+        <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.6rem;"><span style="width:10px;height:10px;border-radius:50%;background:#6A0DAD;flex-shrink:0;"></span><h2 style="color:#6A0DAD;">Phase absolutiste</h2></div>
+        <p>Achèvement de l'élimination des réseaux féodaux et oligarchiques par le pouvoir central. L'administration acquiert une supériorité incontestée. Durée typique : ~200 ans.</p>
+        <div style="padding-left:1.5rem;border-left:1px solid #e0dcd4;">
+            <div class="sub-phase-block"><div class="sub-phase-title"><span class="dash" style="background:#6A0DAD;"></span><h4>Absolutisation (~50-100 ans)</h4></div><p>Le pouvoir central met au pas les grands féodaux. L'ancienne aristocratie est intégrée dans l'administration (domestication) ou écartée (exclusion). Le judiciaire est subordonné à l'exécutif.</p>
+            <div class="saillant-list">
+                <details class="saillant-details"><summary><span class="saillant-left"><span class="material-symbols-outlined" style="color:#6A0DAD;font-variation-settings:'FILL' 1;">crown</span><span>1er monarque absolu</span></span><span class="material-symbols-outlined expand-icon">chevron_right</span></summary><div class="saillant-body"><p>La figure qui résout la guerre sociale. Il ne s'identifie à aucune des factions — il est au-dessus d'elles.</p><table><tr><th>Israël (prol.)</th><th>France</th><th>Angleterre</th><th>Venise</th><th>Bavière</th></tr><tr><td>Simon Thassi (-140)</td><td>Henri IV (1598)</td><td>Henri VII (1485)</td><td>Inquisiteurs (~1669)</td><td>Maximilien Ier (1597)</td></tr></table></div></details>
+                <details class="saillant-details"><summary><span class="saillant-left"><span class="material-symbols-outlined" style="color:#6A0DAD;">whatshot</span><span>DGRO</span></span><span class="material-symbols-outlined expand-icon">chevron_right</span></summary><div class="saillant-body"><p>Dernière grande révolte oligarchique. Absente quand les oligarques n'ont pas de base territoriale.</p><table><tr><th>Israël (prol.)</th><th>France</th><th>Angleterre</th><th>Venise</th><th>Bavière</th></tr><tr><td>Jannée (-94)</td><td>La Fronde (1648-53)</td><td>Henri VIII (~1534-40)</td><td class="cell-empty">—</td><td class="cell-empty">—</td></tr></table></div></details>
+            </div></div>
+            <div class="sub-phase-block"><div class="sub-phase-title"><span class="dash" style="background:#6A0DAD;"></span><h4>Impérialisme absolutiste</h4></div><p>Le pouvoir central dispose de moyens sans précédent. Politique expansionniste, domestication de la noblesse par la cour, professionnalisation militaire.</p>
+            <div class="saillant-list">
+                <details class="saillant-details"><summary><span class="saillant-left"><span class="material-symbols-outlined" style="color:#6A0DAD;">terrain</span><span>Pic absolutiste</span></span><span class="material-symbols-outlined expand-icon">chevron_right</span></summary><div class="saillant-body"><p>Le sommet de la puissance absolutiste — expansion maximale, prestige maximal.</p><table><tr><th>Israël (prol.)</th><th>France</th><th>Angleterre</th><th>Venise</th><th>Bavière</th></tr><tr><td>Hérode (~-20)</td><td>Louis XIV (~1682)</td><td>Élisabeth Ière (~1580)</td><td>Morosini (~1688)</td><td>Max. III J. (~1756)</td></tr></table></div></details>
+                <details class="saillant-details"><summary><span class="saillant-left"><span class="material-symbols-outlined" style="color:#6A0DAD;">block</span><span>Fin de l'expansion</span></span><span class="material-symbols-outlined expand-icon">chevron_right</span></summary><div class="saillant-body"><p>Le pouvoir central atteint les limites de son expansion.</p><table><tr><th>Israël (prol.)</th><th>France</th><th>Angleterre</th><th>Venise</th><th>Bavière</th></tr><tr><td>Mort d'Hérode (-4)</td><td>Utrecht (1713)</td><td class="cell-empty">—</td><td>Passarowitz (1718)</td><td>Blenheim (1704)</td></tr></table></div></details>
+                <details class="saillant-details"><summary><span class="saillant-left"><span class="material-symbols-outlined" style="color:#6A0DAD;">record_voice_over</span><span>Remontrance</span></span><span class="material-symbols-outlined expand-icon">chevron_right</span></summary><div class="saillant-body"><p>Dernière tentative institutionnelle de reprendre des prérogatives au pouvoir absolu. Échoue et ouvre l'AR.</p><table><tr><th>Israël (prol.)</th><th>France</th><th>Angleterre</th><th>Venise</th><th>Bavière</th></tr><tr><td class="cell-empty">—</td><td>Polysynodie (1715)</td><td>Apology (1604)</td><td>Correzione (1761)</td><td>Landtag (1848)</td></tr></table></div></details>
+            </div></div>
+            <div class="sub-phase-block"><div class="sub-phase-title"><span class="dash" style="background:#6A0DAD;"></span><h4>Ancien Régime (~35-100 ans)</h4></div><p>Le système absolutiste à maturité. Les élites se sédimentent, les rentes deviennent insupportables. Le clivage gauche-droite saute : ED + EG convergent en <strong>bloc contestataire</strong>.</p>
+            <div class="saillant-list">
+                <details class="saillant-details"><summary><span class="saillant-left"><span class="material-symbols-outlined" style="color:#6A0DAD;">hourglass_top</span><span>Ancien Régime</span></span><span class="material-symbols-outlined expand-icon">chevron_right</span></summary><div class="saillant-body"><p>Sédimentation, surproduction élitaire. La rupture est inévitable.</p><table><tr><th>Israël (prol.)</th><th>France</th><th>Angleterre</th><th>Venise</th><th>Bavière</th></tr><tr><td>4 à 66</td><td>~1715-1789</td><td>~1603-1642</td><td>~1718-1848</td><td>~1848-1918</td></tr></table></div></details>
+            </div></div>
+        </div>
+    </div>
+
+    <!-- ==================== RÉVOLUTION NATIONALE ==================== -->
+    <div class="phase-card" style="border-left:4px solid #D4A017;">
+        <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.6rem;"><span style="width:10px;height:10px;border-radius:50%;background:#D4A017;flex-shrink:0;"></span><h2 style="color:#D4A017;">Révolution Nationale</h2></div>
+        <p>Renversement de l'ordre absolutiste. Le bloc contestataire (ED + EG) fait tomber le bloc élitaire. Durée typique : ~25-80 ans.</p>
+        <div style="padding-left:1.5rem;border-left:1px solid #e0dcd4;">
+            <div class="sub-phase-block"><div class="sub-phase-title"><span class="dash" style="background:#D4A017;"></span><h4>Révolution initiale</h4></div><p>Explosion, expérience parlementaire, phase aiguë, moment thermidorien. La période la plus turbulente.</p>
+            <div class="saillant-list">
+                <details class="saillant-details"><summary><span class="saillant-left"><span class="material-symbols-outlined" style="color:#D4A017;">flash_on</span><span>Explosion de l'AR</span></span><span class="material-symbols-outlined expand-icon">chevron_right</span></summary><div class="saillant-body"><p>L'AR perd sa légitimité. Les élites basculent.</p><table><tr><th>Israël (prol.)</th><th>France</th><th>Angleterre</th><th>Venise</th><th>Bavière</th></tr><tr><td>Grande Révolte (66)</td><td>1789</td><td>Guerre civile (1642)</td><td>Insurrection (1848)</td><td>Eisner (1918)</td></tr></table></div></details>
+                <details class="saillant-details"><summary><span class="saillant-left"><span class="material-symbols-outlined" style="color:#D4A017;">account_balance</span><span>Expérience parlementaire</span></span><span class="material-symbols-outlined expand-icon">chevron_right</span></summary><div class="saillant-body"><p>On expérimente le parlementarisme après le renversement.</p><table><tr><th>Israël (prol.)</th><th>France</th><th>Angleterre</th><th>Venise</th><th>Bavière</th></tr><tr><td>Gouv. coalition (66-67)</td><td>Ass. nat. (1789-91)</td><td>Long Parl. (1640-48)</td><td>Rép. Manin (1848-49)</td><td>État libre (1918-19)</td></tr></table></div></details>
+                <details class="saillant-details"><summary><span class="saillant-left"><span class="material-symbols-outlined" style="color:#D4A017;font-variation-settings:'FILL' 1;">skull</span><span>Phase aiguë</span></span><span class="material-symbols-outlined expand-icon">chevron_right</span></summary><div class="saillant-body"><p>L'extrême-gauche prend le contrôle et élimine les modérés.</p><table><tr><th>Israël (prol.)</th><th>France</th><th>Angleterre</th><th>Venise</th><th>Bavière</th></tr><tr><td>Zélotes (67-70)</td><td>Terreur (1792-94)</td><td>Exéc. Charles Ier (1649)</td><td>Pouvoirs ill. (1849)</td><td>Rép. Conseils (1919)</td></tr></table></div></details>
+                <details class="saillant-details"><summary><span class="saillant-left"><span class="material-symbols-outlined" style="color:#D4A017;">balance</span><span>Moment thermidorien</span></span><span class="material-symbols-outlined expand-icon">chevron_right</span></summary><div class="saillant-body"><p>Le centre reprend le pouvoir et purge l'EG.</p><table><tr><th>Israël (prol.)</th><th>France</th><th>Angleterre</th><th>Venise</th><th>Bavière</th></tr><tr><td class="cell-empty">— (écrasée)</td><td>Directoire (1794-99)</td><td>Rump Parl. (1649-53)</td><td class="cell-empty">— (écrasée)</td><td class="cell-empty">— (absorbée)</td></tr></table></div></details>
+            </div></div>
+            <div class="sub-phase-block"><div class="sub-phase-title"><span class="dash" style="background:#D4A017;"></span><h4>Impérialiste Revanchard</h4></div><p>Figure autoritaire qui renoue avec la verticalité du pouvoir. Ventilation des élites, méritocratie.</p>
+            <div class="saillant-list">
+                <details class="saillant-details"><summary><span class="saillant-left"><span class="material-symbols-outlined" style="color:#D4A017;">military_tech</span><span>Émergence de l'IR</span></span><span class="material-symbols-outlined expand-icon">chevron_right</span></summary><div class="saillant-body"><p>Le moment où la figure autoritaire prend le pouvoir.</p><table><tr><th>Israël (prol.)</th><th>France</th><th>Angleterre</th><th>Venise</th><th>Bavière</th></tr><tr><td class="cell-empty">—</td><td>Bonaparte (1799)</td><td>Cromwell (1653)</td><td class="cell-empty">— (avortée)</td><td class="cell-empty">— (absorbée)</td></tr></table></div></details>
+            </div></div>
+            <div class="sub-phase-block"><div class="sub-phase-title"><span class="dash" style="background:#D4A017;"></span><h4>Restauration → Glorieuse Révolution</h4></div><p>L'IR tombe. Un régime à base élargie, pas encore pleinement parlementaire. Une réplique ancre le parlementarisme définitivement.</p>
+            <div class="saillant-list">
+                <details class="saillant-details"><summary><span class="saillant-left"><span class="material-symbols-outlined" style="color:#D4A017;">star</span><span>Glorieuse Révolution</span></span><span class="material-symbols-outlined expand-icon">chevron_right</span></summary><div class="saillant-body"><p>Transition définitive vers l'État-nation parlementaire.</p><table><tr><th>Israël (prol.)</th><th>France</th><th>Angleterre</th><th>Venise</th><th>Bavière</th></tr><tr><td class="cell-empty">—</td><td>1830</td><td>1688</td><td class="cell-empty">— (abs. 1866)</td><td class="cell-empty">— (abs. 1919)</td></tr></table></div></details>
+            </div></div>
+        </div>
+    </div>
+
+    <!-- ==================== PERTURBATIONS ==================== -->
+    <div class="phase-card" style="border-left:4px solid #ba1a1a;">
+        <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.6rem;"><span style="width:10px;height:10px;border-radius:50%;background:#ba1a1a;flex-shrink:0;"></span><h2 style="color:#ba1a1a;">Perturbations</h2></div>
+        <p>Le Parcours peut être perturbé par des chocs externes. L'effet dépend de ce qu'ils font aux deux moteurs : destruction des institutions (reboot) ou hétérogénéisation de la société (prolongement).</p>
+        <div class="saillant-list" style="margin-left:0;">
+            <details class="saillant-details"><summary><span class="saillant-left"><span class="material-symbols-outlined" style="color:#ba1a1a;">restart_alt</span><span>Reboot</span></span><span class="material-symbols-outlined expand-icon">chevron_right</span></summary><div class="saillant-body"><p>Destruction des institutions. Le Parcours régresse à une phase antérieure. Ex. : conquête babylonienne (-586), conquête normande (1066).</p></div></details>
+            <details class="saillant-details"><summary><span class="saillant-left"><span class="material-symbols-outlined" style="color:#ba1a1a;">pause</span><span>Prolongement</span></span><span class="material-symbols-outlined expand-icon">chevron_right</span></summary><div class="saillant-body"><p>Hétérogénéisation sans destruction. Le Parcours stagne le temps que l'homogénéité rattrape. Ex. : conquête macédonienne (-332).</p></div></details>
+            <details class="saillant-details"><summary><span class="saillant-left"><span class="material-symbols-outlined" style="color:#ba1a1a;">group_add</span><span>Choc d'hétérogénéité</span></span><span class="material-symbols-outlined expand-icon">chevron_right</span></summary><div class="saillant-body"><p>Expansion territoriale hétérogénéisante. Peut avorter une sous-phase en cours. Ex. : doublement napoléonien de la Bavière (1806).</p></div></details>
+        </div>
+    </div>
+</section>
+
+</div>
+
+<footer class="footer">
+    <p>Historionomie — cadre de Philippe Fabry. Parcours analysés par Thomas Pariente et Claude.</p>
+    <div class="footer-icons">
+        <a href="#"><span class="material-symbols-outlined">menu_book</span></a>
+        <a href="#"><span class="material-symbols-outlined">description</span></a>
+    </div>
+</footer>
+
+</body>
+</html>

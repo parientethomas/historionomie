@@ -10,9 +10,11 @@ La phase féodale se décompose en deux processus successifs :
 
 ### Percolation (avant l'éveil féodal)
 
-Avant l'éveil féodal, le pouvoir est **distribué** — fragmenté entre des micro-pouvoirs locaux sans centre. Des liens se forment et se défont, des alliances se nouent et se rompent, sans direction ni structure. C'est un processus chaotique, non directionnel.
+Le terme « percolation » est emprunté à la théorie des systèmes dynamiques (Deblonde). En physique, la percolation désigne le moment où, dans un système distribué, un chemin continu se forme à travers le réseau — le seuil critique au-delà duquel le système passe d'un état fragmenté à un état connecté. C'est un phénomène de **transition de phase** : avant le seuil, les connexions locales existent mais ne forment pas de réseau global ; au seuil, un chemin continu apparaît soudainement.
 
-Un jour, un chemin continu se forme : un chef émerge qui est assez fort pour **forcer les autres à se positionner par rapport à lui**. Ce n'est pas un simple titre (comme Hugues Capet en 987, que ses vassaux ignorent) — c'est un pouvoir réel qui structure le jeu politique. C'est l'**éveil féodal**, et il marque la fin de la percolation.
+En historionomie, la percolation est la période où le pouvoir est **distribué** — fragmenté entre des micro-pouvoirs locaux sans centre. Des liens se forment et se défont, des alliances se nouent et se rompent, sans direction ni structure. Le phénomène est encore distribué : il n'y a pas de centre.
+
+Un jour, un chemin continu se forme : un chef émerge qui est assez fort pour **forcer les autres à se positionner par rapport à lui**. Ce n'est pas un simple titre (comme Hugues Capet en 987, que ses vassaux ignorent) — c'est un pouvoir réel qui structure le jeu politique. C'est l'**éveil féodal**, et il marque la fin de la percolation. À partir de là, il y a un centre, et les terroirs s'agrègent autour de lui — ou en opposition à lui, mais le résultat est le même : le jeu politique est structuré.
 
 **Exemples de percolation :**
 - **France** (843-1108) : les Capétiens portent le titre royal pendant 120 ans sans pouvoir réel. L'Île-de-France se consolide lentement. La percolation s'achève quand Louis VI (~1108) est assez fort pour convoquer le ban et que les vassaux viennent.

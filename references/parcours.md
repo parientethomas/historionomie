@@ -139,20 +139,21 @@ Le Parcours peut être perturbé par des chocs externes (conquêtes, occupations
 
 Voir `references/nations/*/parcours.md` pour le détail et `references/nations/*/justification.md` pour l'argumentation.
 
-| Saillant | Israël antique | Israël (prolongement) | France | Angleterre | Allemagne (Prusse) | Venise |
-|---|---|---|---|---|---|---|
-| Éveil féodal | Saül (~-1080) | — | Louis VI (~1108) | Guillaume (1066, reboot) | Rodolphe Ier (1273, reboot) | Orso Ipato (~726) |
-| Pic féodal | Salomon (~-960) | — | Philippe le Bel (~1295) | Édouard Ier (~1295) | Charles Quint (1519) | Orseolo (~991) |
-| Pacte oligarchique | — (non identifié) | — | Loi salique (1317) | Ordonnances (1311) | Augsbourg (1555) | Abolition co-régence (1032) |
-| 1er monarque oligarchique | Omri (-885) | — | Philippe VI (1328) | Édouard III (1327) | Grand Électeur (1640) | Contarini (~1043) / système |
-| Pic oligarchique | Jéroboam II (~-770) | — | François Ier (~1515) | Édouard III (~1350) | — | Dandolo (~1192-1205) |
-| Fin de l'expansion (olig.) | ~-746 | — | Cateau-Cambrésis (1559) | — | — | Agnadello (1509) |
-| Guerre sociale | -700 à -641 | -175 à -140 | Guerres de Religion (~1562-1598) | Guerre des Deux-Roses (~1455-1485) | Conflit Électeur/États (~1660-1713) | Tensions institutionnelles (~1628-1669) |
-| 1er monarque absolu | Josias (-640) | Simon Thassi (-140) | Henri IV (1598) | Henri VII (1485) | Frédéric-Guillaume Ier (1713) | Inquisiteurs d'État (~1669) |
-| Dernière grande révolte olig. | — | Jannée (-94) | La Fronde (1648-1653) | Henri VIII (~1534-1540) | — | — (pas d'assise territoriale) |
-| Pic absolutiste | — (interrompu) | Hérode (-20) | Louis XIV (~1682) | Élisabeth Ière (~1580) | Frédéric le Grand (~1760) | Morosini (~1688) |
-| Fin de l'expansion (abs.) | — | Mort d'Hérode (-4) | Utrecht (1713) | — | — | Passarowitz (1718) |
-| Ancien Régime | — (interrompu) | 4 à 66 | ~1715-1789 | ~1603-1642 | ~1890-1918 | ~1718-1848 |
-| Début de la RN | — | Grande Révolte (66) | 1789 | Guerre civile (1642) | Révolution de Novembre (1918) | République de Manin (1848) |
-| Impérialiste Revanchard | — | — | Bonaparte (1799) | Cromwell (1653) | Hitler (1933) | — (RN avortée) |
-| Glorieuse Révolution | — | — | 1830 | 1688 | Réunification (1990) | — (absorbée dans Parcours italien, 1866) |
+| Saillant | Israël antique | Israël (prolongement) | France | Angleterre | Allemagne (Prusse) | Venise | Bavière |
+|---|---|---|---|---|---|---|---|
+| Éveil féodal | Saül (~-1080) | — | Louis VI (1108) | Guillaume (1066, reboot) | Rodolphe Ier (1273, reboot) | Orso Ipato (~726) | Louis Ier (~1204) |
+| Pic féodal | Salomon (~-960) | — | Philippe le Bel (~1295) | Édouard Ier (~1295) | Charles Quint (1519) | Orseolo (~991) | Louis IV (~1328) |
+| Pacte oligarchique | — (non identifié) | — | Loi salique (1317) | Ordonnances (1311) | Augsbourg (1555) | Abolition co-régence (1032) | Primogéniture (1506) |
+| 1er monarque oligarchique | Omri (-885) | — | Philippe VI (1328) | Édouard III (1327) | Grand Électeur (1640) | Contarini (~1043) / système | Guillaume IV (~1508) |
+| Pic oligarchique | Jéroboam II (~-770) | — | François Ier (~1515) | Édouard III (~1350) | — | Foscari (~1440) | Albert V (~1555) |
+| Fin de l'expansion (olig.) | ~-746 | — | Cateau-Cambrésis (1559) | — | — | Agnadello (1509) | — |
+| Guerre sociale | -700 à -641 | -175 à -140 | Guerres de Religion (~1562-1598) | Guerre des Deux-Roses (~1455-1485) | Conflit Électeur/États (~1660-1713) | Tensions institutionnelles (~1628-1669) | ~1564-1597 |
+| 1er monarque absolu | Josias (-640) | Simon Thassi (-140) | Henri IV (1598) | Henri VII (1485) | Frédéric-Guillaume Ier (1713) | Inquisiteurs d'État (~1669) | Maximilien Ier (1597) |
+| Dernière grande révolte olig. | — | Jannée (-94) | La Fronde (1648-1653) | Henri VIII (~1534-1540) | — | — (pas d'assise) | — (pas d'assise) |
+| Pic absolutiste | — (interrompu) | Hérode (-20) | Louis XIV (~1682) | Élisabeth Ière (~1580) | Frédéric le Grand (~1760) | Morosini (~1688) | Max. III Joseph (~1756) / Louis Ier (~1835) |
+| Fin de l'expansion (abs.) | — | Mort d'Hérode (-4) | Utrecht (1713) | — | — | Passarowitz (1718) | Blenheim (1704) |
+| Remontrance | — | — | Polysynodie (1715) | Apology of the Commons (1604) | — | Correzione (1761) | Landtag (1848) |
+| Ancien Régime | — (interrompu) | 4 à 66 | ~1715-1789 | ~1603-1642 | ~1890-1918 | ~1718-1848 | ~1848-1918 |
+| Début de la RN | — | Grande Révolte (66) | 1789 | Guerre civile (1642) | Révolution de Novembre (1918) | République de Manin (1848) | Eisner (1918) |
+| Impérialiste Revanchard | — | — | Bonaparte (1799) | Cromwell (1653) | Hitler (1933) | — (RN avortée) | — (absorbée) |
+| Glorieuse Révolution | — | — | 1830 | 1688 | Réunification (1990) | — (absorbée, 1866) | — (absorbée, 1919) |

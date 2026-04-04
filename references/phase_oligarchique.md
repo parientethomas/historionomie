@@ -57,7 +57,7 @@ En milieu de phase apparaît souvent une figure exécutive particulièrement pui
 - Israël antique : Jéroboam II (~-770)
 - France : François Ier (~1515) — Concordat de Bologne, Guerres d'Italie, cour Renaissance. Reflux après sa mort (tensions religieuses).
 - Angleterre : Édouard III (~1350)
-- Venise : Enrico Dandolo (~1192-1205) — détournement de la IVe croisade, création du Stato da Màr. Pic oligarchique, pas absolutiste : Dandolo agit dans le cadre de la promissione ducale, et le système ne dépend pas de lui.
+- Venise : Francesco Foscari (~1440) — plus long dogat de l'histoire vénitienne (1423-1457), expansion maximale de la Terraferma, Venise au pic de sa puissance combinée (maritime + terrestre). Foscari agit dans le cadre de la promissione ducale — le Conseil des Dix le force à démissionner en 1457.
 
 **Note :** Ce saillant est bien identifié mais sa position chronologique précise au sein de la phase (milieu ? premier tiers ?) demande davantage d'exemples pour être stabilisée.
 
@@ -157,4 +157,4 @@ L'expansion extérieure peut considérablement retarder la polarisation des éli
 | France (Deblonde) | Philippe VI (1328) | François Ier (~1515) | Guerres de Religion (~1562-1598) | Henri IV (1598) |
 | France (alternative) | Philippe Auguste (1180) | Philippe le Bel (~1300) | Guerres de Religion (~1562-1598) | Henri IV (1598) |
 | Angleterre | Édouard Ier (1272) | Édouard III (~1350) | Guerre des Deux-Roses (~1455-1485) | Henri VII (1485) |
-| Venise | Contarini (~1043) / système | Dandolo (~1192-1205) | ~1628-1669 | Inquisiteurs d'État (~1669) |
+| Venise | Contarini (~1043) / système | Foscari (~1440) | ~1628-1669 | Inquisiteurs d'État (~1669) |

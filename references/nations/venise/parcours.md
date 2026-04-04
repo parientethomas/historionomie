@@ -6,7 +6,8 @@
 - start: ~726
 - end: 1866 (absorption dans le Parcours italien)
 - status: Phase oligarchique (1032-~1669), phase absolutiste endogène puis sous domination étrangère (~1669-1848), RN avortée (1848-1849), absorption dans le Parcours italien (1866)
-- note: T0 = Orso Ipato (~726). Pacte oligarchique = 1032. La phase oligarchique (~637 ans) est prolongée par l'expansion permanente qui retarde la polarisation. La guerre sociale (~1628-1669) est résolue par le triomphe de l'appareil des Inquisiteurs d'État — « tiers » institutionnel. La phase absolutiste (~179 ans) est endogène (suprématie des Inquisiteurs post-1669, pic = Morosini ~1688) puis complétée par Napoléon (1797). La RN de 1848 (République de Manin) est écrasée par l'Autriche — structurellement analogue à Israël en 66-70.
+- subtitle: Du lagon des réfugiés à la Sérénissime, onze siècles sans roi
+- note: Le Parcours le plus long du corpus (1140 ans). La phase oligarchique (~637 ans) est la plus longue jamais identifiée — l'expansion permanente retarde la polarisation. L'absolutisme vénitien est unique : porté par une institution (les Inquisiteurs d'État), pas par un monarque. La RN de 1848 (République de Manin) est écrasée par l'Autriche, structurellement analogue à Israël en 66-70.
 - confidence: medium
 
 ---
@@ -69,6 +70,7 @@
 
 #### Saillant : Crise féodale — crise franque
 - type: saillant
+- avortement: true
 - start: ~804
 - end: ~810
 - title: Crise féodale
@@ -144,15 +146,15 @@
 - alternatives: Le « 1er monarque oligarchique » vénitien est le système post-1032 plus que la personne du doge. Venise n'a pas de roi — le pouvoir est collégial dès le début de la phase oligarchique. C'est analogue à Israël post-exil, où la phase oligarchique progresse sans roi.
 - summary: Domenico Contarini (doge 1043-1070) est le premier doge à gouverner de manière stable sous le régime post-dynastique, avec un fisc commercial permanent, une flotte permanente, et une administration en cours d'institutionnalisation.
 
-#### Saillant : Pic oligarchique — Dandolo et la IVe croisade
+#### Saillant : Pic oligarchique — Foscari et l'apogée de la Terraferma
 - type: saillant
-- start: ~1192
-- end: ~1205
-- figure: Enrico Dandolo
+- start: ~1440
+- figure: Francesco Foscari
 - title: Pic oligarchique
-- confidence: high
-- summary: Enrico Dandolo (doge 1192-1205), aveugle et octogénaire, détourne la IVe croisade vers Constantinople et crée l'empire maritime vénitien. C'est l'apogée de la puissance vénitienne en phase oligarchique.
-- description: Dandolo est le premier doge à gouverner sous la promissione ducale, mais il est aussi le plus puissant. Le détournement de la croisade aboutit à la Partitio Romaniae (1204) : Venise obtient trois huitièmes de Constantinople, la Crète, l'Eubée, les îles Ioniennes, et un réseau de comptoirs. Le doge prend le titre de « Seigneur d'un quart et demi de l'Empire romain ». Mais Dandolo agit dans le cadre oligarchique — il ne peut rien sans le Grand Conseil — et le système continue sans accroc après sa mort (1205). C'est un pic oligarchique, pas absolutiste : le pouvoir ne se concentre pas dans une main, il s'exerce collectivement.
+- confidence: medium
+- alternatives: Enrico Dandolo (~1192-1205) — prestige extraordinaire (IVe croisade, création du Stato da Màr), mais Venise ne contrôle pas encore la Terraferma. Dandolo est le pic de la puissance maritime seule. Foscari est retenu car il incarne le pic de la puissance combinée (maritime + terrestre).
+- summary: Francesco Foscari (doge 1423-1457) préside le plus long dogat de l'histoire vénitienne et porte la puissance vénitienne à son maximum combiné : empire maritime hérité de Dandolo ET Terraferma à son extension maximale (Bergame, Brescia, Crema, Ravenne). Venise est à la fois puissance maritime et puissance terrestre — le vrai pic.
+- description: Foscari incarne la Venise oligarchique à son apogée. Son dogat de 34 ans (le plus long de l'histoire de la République) coïncide avec le maximum d'extension territoriale : l'empire maritime hérité de la IVe croisade EST TOUJOURS en place (Crète, Eubée, comptoirs), et la conquête de la Terraferma (1404-1428) a ajouté un vaste territoire continental allant de Bergame à Ravenne. Venise est simultanément la première puissance commerciale maritime de Méditerranée et un État territorial majeur en Italie du Nord. Les guerres contre Milan (Visconti, puis Sforza) projettent la puissance vénitienne à l'échelle de l'Italie entière. Foscari gouverne dans le cadre oligarchique — la promissione ducale le contraint, et le Conseil des Dix finira par le forcer à démissionner (1457) — mais son pouvoir personnel est considérable. C'est l'analogue de François Ier pour la France ou de Jéroboam II pour Israël : le pic de puissance et de prestige pendant la phase oligarchique, avant que la polarisation ne commence.
 
 #### Saillant : Fin de l'expansion — Agnadello
 - type: saillant
@@ -245,23 +247,34 @@
 - confidence: high
 - summary: Le traité de Passarowitz (1718) entérine la perte de la Morée et marque la fin définitive de toute expansion vénitienne. À partir de cette date, le système entre en Ancien Régime.
 
+#### Saillant : Remontrance
+- type: saillant
+- start: 1761
+- figure: Correzione de Querini
+- title: Remontrance
+- confidence: medium
+- alternatives: Pisani-Contarini (1779) — plus tardif, même mécanisme. La Correzione de 1761 est retenue car c'est la première tentative significative.
+- summary: En 1761, Angelo Querini mène une tentative de réforme institutionnelle (Correzione) visant à redistribuer le pouvoir au sein du patriciat. Les Inquisiteurs d'État écrasent la tentative. L'échec confirme l'entrée en Ancien Régime.
+- description: La Correzione de 1761 est la remontrance vénitienne. Angelo Querini, patricien réformateur, tente de redistribuer le pouvoir au sein du Grand Conseil en limitant l'autorité des Inquisiteurs d'État et en ouvrant les charges aux nobles appauvris (barnabotti). C'est la tentative de la classe patricienne de reprendre des prérogatives à l'appareil exécutif absolutiste. Les Inquisiteurs écrasent la tentative. Le mouvement Pisani-Contarini (1779) est une réplique qui échoue de même. Ces contestations ne sont pas des DGRO (les contestataires n'ont pas d'assise territoriale) mais des remontrances : la classe administrative/patricienne tente de prendre des prérogatives au pouvoir absolu, et échoue. Structurellement identique à la Polysynodie française (1715), l'Apology of the Commons anglaise (1604), et la remontrance bavaroise (1848).
+
 ### Subphase : Ancien Régime endogène (~1718-1797)
 - type: subphase
 - phase: absolutiste
 - start: ~1718
 - end: 1797
 - title: Ancien Régime endogène
-- summary: Sédimentation (barnabotti, patriciat en déclin), rayonnement culturel (Vivaldi, Canaletto, Tiepolo, Goldoni), investissement foncier (villas palladiennes). Contestations du régime (Correzione de 1761, Pisani-Contarini 1779) — pas des DGRO mais des défis de type polysynodie, écrasés par les Inquisiteurs. Le bloc élitaire se cristallise, le clivage gauche-droite saute.
+- summary: Sédimentation (barnabotti, patriciat en déclin), rayonnement culturel (Vivaldi, Canaletto, Tiepolo, Goldoni), investissement foncier (villas palladiennes). Contestations du régime (Correzione de 1761, Pisani-Contarini 1779) — remontrances écrasées par les Inquisiteurs. Le bloc élitaire se cristallise, le clivage gauche-droite saute.
 - description: L'Ancien Régime vénitien endogène présente tous les marqueurs classiques de la sédimentation absolutiste. Les barnabotti — nobles appauvris de la paroisse San Barnaba, conservant leurs droits de vote mais vendant leur soutien au plus offrant — incarnent la sclérose du système. Le patriciat décline numériquement de ~2500 (XVIe siècle) à ~1300 (1775). Parallèlement, le rayonnement culturel est à son apogée : Vivaldi compose à l'Ospedale della Pietà, Canaletto peint les vedute qui définissent l'image de Venise, Tiepolo décore les palais d'Europe, Goldoni réinvente le théâtre. L'investissement foncier en Terraferma (villas palladiennes) transforme la classe marchande en gentry rentière. Les contestations du régime — la Correzione de Querini (1761), l'affaire Pisani-Contarini (1779) — ne sont pas des DGRO car les contestataires n'ont pas d'assise territoriale depuis laquelle se révolter : ce sont des défis de type polysynodie, des tentatives de redistribuer le pouvoir au sein de l'élite, systématiquement écrasés par les Inquisiteurs.
 
 ### Perturbation : Avortement — conquête par Bonaparte (1797)
 - type: perturbation
 - subtype: avortement
 - start: 1797
+- end: 1798
 - title: Avortement — conquête par Bonaparte
 - confidence: high
-- summary: La conquête de Venise par Bonaparte en 1797 détruit les institutions vénitiennes : dissolution du Grand Conseil (12 mai 1797, vote 512 contre 20), Libro d'Oro brûlé (4 juin), Bucintoro démantelé, 30 000 œuvres d'art pillées. Le traité de Campo Formio cède Venise à l'Autriche. C'est un avortement au sens historionomique — destruction des institutions endogènes par une force extérieure.
-- description: Bonaparte ne « complète » pas l'absolutisation vénitienne : il détruit les institutions qui portaient le Parcours. Le Grand Conseil vote sa propre dissolution sous la pression militaire. Le doge Ludovico Manin retire le corne ducal : « Tole, questa no la doperaremo pi. » Le Libro d'Oro est brûlé en place Saint-Marc au pied d'un Arbre de la Liberté. La peine de mort est décrétée pour quiconque crie « Viva San Marco ! ». Le traité de Campo Formio (17 octobre 1797) cède Venise à l'Autriche sans consultation. L'appareil des Inquisiteurs, le Sénat, le Conseil des Dix, la promissione ducale — tout est aboli. C'est structurellement un avortement : la force extérieure anéantit les institutions, le Parcours est interrompu. La RN de 1848 se fera sous domination étrangère, dans un cadre institutionnel entièrement nouveau.
+- summary: La conquête de Venise par Bonaparte en 1797 détruit les institutions endogènes vénitiennes : dissolution du Grand Conseil (12 mai 1797), Libro d'Oro brûlé (4 juin), traité de Campo Formio (17 octobre) cédant Venise à l'Autriche. Mais l'homogénéité culturelle vénitienne — langue, mémoire, conscience identitaire — survit intacte, et l'administration autrichienne impose un pouvoir absolutiste de substitution. Le Parcours ne recule pas : l'AR se poursuit sous domination étrangère.
+- description: Bonaparte détruit les institutions endogènes de la République — Grand Conseil dissous sous la pression militaire (vote 512 contre 20, 12 mai 1797), Libro d'Oro brûlé en place Saint-Marc (4 juin), appareil des Inquisiteurs, Sénat, Conseil des Dix, promissione ducale abolis, peine de mort décrétée pour quiconque crie « Viva San Marco ! ». Le doge Ludovico Manin retire le corne ducal : « Tole, questa no la doperaremo pi. » Le traité de Campo Formio (17 octobre 1797) cède Venise à l'Autriche sans consultation. L'administration autrichienne est pleinement installée en janvier 1798. C'est un avortement des institutions endogènes, mais **pas un reboot** : l'homogénéité culturelle vénitienne — langue vénitienne, mémoire républicaine, conscience identitaire distincte, réseaux sociaux — survit intacte. Et l'Autriche fournit un pouvoir absolutiste de substitution (administration centralisée, fisc, justice) qui maintient les conditions de l'AR. Le Parcours ne recule pas d'une phase — il continue en AR sous domination étrangère, avec le même mécanisme de sédimentation et la même formation du bloc contestataire. C'est ce qui rend la RN de 1848 possible : l'homogénéité est préservée, les conditions de l'AR persistent, et le bloc contestataire se cristallise sous domination autrichienne exactement comme il se serait cristallisé sous domination endogène.
 
 ### Subphase : Ancien Régime sous domination étrangère (1797-1848)
 - type: subphase
@@ -294,7 +307,7 @@
 
 #### Saillant : Explosion de l'AR — insurrection de mars 1848
 - type: saillant
-- start: 1848-03
+- start: 1848
 - figure: Daniele Manin
 - title: Explosion de l'AR
 - confidence: high
@@ -303,8 +316,8 @@
 
 #### Saillant : Expérience parlementaire — République de Manin
 - type: saillant
-- start: 1848-03
-- end: 1849-08
+- start: 1848
+- end: 1849
 - figure: Daniele Manin
 - title: Expérience parlementaire
 - confidence: high
@@ -313,7 +326,7 @@
 
 #### Saillant : Phase aiguë (amorcée) — pouvoirs illimités pour Manin
 - type: saillant
-- start: 1849-03
+- start: 1849
 - figure: Daniele Manin
 - title: Phase aiguë
 - confidence: medium
@@ -322,7 +335,7 @@
 
 #### Saillant : Écrasement — capitulation de la République de San Marco
 - type: saillant
-- start: 1849-08-22
+- start: 1849
 - title: Écrasement
 - confidence: high
 - summary: L'Autriche écrase la République par le siège, le bombardement, le blocus alimentaire et l'épidémie de choléra. Venise capitule le 22 août 1849 — dernière république de 1848 à tomber en Europe. L'écrasement est entièrement exogène.
@@ -348,7 +361,7 @@
 | Crise féodale | Crise franque (~804-810) |
 | Pacte oligarchique | Abolition de la co-régence (1032) |
 | 1er monarque oligarchique | Contarini (~1043) / système post-1032 |
-| Pic oligarchique | Dandolo / IVe croisade (~1192-1205) |
+| Pic oligarchique | Foscari (~1440) |
 | Fin de l'expansion | Agnadello (1509) |
 | Guerre sociale | Giovani vs vecchi / triomphe des Inquisiteurs (~1628-1669) |
 | 1er monarque absolu | Inquisiteurs d'État (~1669) |
