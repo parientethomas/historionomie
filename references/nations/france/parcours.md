@@ -156,7 +156,7 @@
 - type: perturbation
 - start: ~1346
 - end: ~1364
-- title: Chevauchées d'Édouard III
+- title: Conquêtes anglaises
 - summary: La chevalerie française est écrasée à Crécy en 1346 puis à Poitiers en 1356, où Jean II le Bon est capturé par les Anglais, plongeant le royaume dans le chaos pendant près de vingt ans avant que Charles V ne relance l'essor.
 - description: Le premier reflux de l'essor oligarchique est provoqué par deux défaites militaires majeures face aux Anglais. À Crécy en 1346, l'armée française est décimée par les archers gallois. Dix ans plus tard, à Poitiers en 1356, le roi Jean II le Bon est lui-même capturé, laissant le royaume sans chef face à la Peste Noire, aux Jacqueries paysannes et à la tentative de coup d'État d'Étienne Marcel. Le traité de Brétigny (1360), qui cède un tiers du royaume à l'Angleterre, marque le point bas. Mais les institutions centrales — la monarchie des Valois, le Parlement de Paris, l'administration fiscale — survivent intactes, et Charles V relance l'essor dès 1364.
 - affected_motor: Construction de l'État central
@@ -215,7 +215,7 @@
 - phase: oligarchique
 - start: 1418
 - end: ~1429
-- title: Nouveau Pacte Oligarchique
+- title: Nouveau PO
 - summary: Entre 1418 et 1429, les élites méridionales reconstituent l'appareil d'État autour du Dauphin — Parlement de Poitiers, Chambre des comptes de Bourges, États généraux quasi annuels — et codifient leur soutien collectif aux États généraux de Chinon (1428). La victoire de Baugé (1421) donne au Dauphin sa crédibilité militaire. Le sacre de Reims (1429) parachève la légitimation.
 - description: La reconstruction du pacte oligarchique est un processus d'une dizaine d'années, porté par une classe dirigeante sociologiquement nouvelle — noblesse méridionale, bourgeoisie marchande montante, magistrats transfuges. Fait remarquable : le Dauphin commence à reconstruire l'appareil d'État *avant même* la destruction formelle du PO par le Traité de Troyes (1420). Dès septembre 1418, après la prise de Paris par les Bourguignons, il crée le Parlement de Poitiers par ordonnance, se concevant comme le Parlement de Paris en exil et revendiquant la continuité juridique (suprema curia). En décembre 1418, il se proclame régent à Bourges. C'est que l'effondrement des institutions est déjà en cours — la guerre civile, la prise de Paris, la purge des Armagnacs ont de facto détruit le cadre institutionnel du nord bien avant que Troyes ne l'entérine juridiquement. Le Dauphin ne reconstruit pas après la catastrophe : il reconstruit *pendant* la catastrophe, ce qui explique la rapidité du reboot. La Chambre des comptes est transférée en 1421. La bataille de Baugé (22 mars 1421) — première défaite anglaise en bataille rangée depuis Azincourt, où le duc de Clarence est tué — brise le mythe d'invincibilité anglaise et donne au Dauphin une crédibilité militaire. Des États généraux sont convoqués quasi annuellement (1423, 1424, 1425, 1427, 1428). Le moment décisif est les États généraux de Chinon (septembre 1428) : plus de 200 délégués — nobles, clergé, représentants des villes — votent 500 000 livres tournois et présentent 32 cahiers de doléances demandant une monnaie unifiée, des réformes commerciales et la répression du brigandage. C'est le nouveau pacte oligarchique : les élites codifient collectivement les conditions de leur obéissance. Le sacre à Reims en juillet 1429, rendu possible par les fonds votés à Chinon, parachève la légitimation.
 

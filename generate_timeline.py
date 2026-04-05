@@ -449,7 +449,7 @@ def generate_html(data: dict) -> str:
         end_label = format_year(sp["end"], sp["end_approx"]) if sp["end"] else "en cours"
 
         narrow_class = ""
-        if width_pct < 2:
+        if width_pct < 3:
             narrow_class = " very-narrow"
         elif width_pct < 5:
             narrow_class = " narrow"
@@ -731,9 +731,9 @@ body {{ font-family: 'Public Sans', 'Segoe UI', system-ui, sans-serif; backgroun
 /* Figure card */
 .detail-figure {{ display:flex; align-items:center; gap:0.8rem; background:rgba(226,226,226,0.5);
     border-radius:10px; padding:0.8rem 1rem; }}
-.detail-figure-portrait {{ width:52px; height:52px; border-radius:50%; object-fit:cover; flex-shrink:0;
-    filter:grayscale(80%) contrast(1.1) brightness(0.95); }}
-.detail-figure-icon {{ width:52px; height:52px; border-radius:50%; background:#d1c4b9;
+.detail-figure-portrait {{ width:52px; height:52px; border-radius:6px; object-fit:cover; flex-shrink:0;
+    }}
+.detail-figure-icon {{ width:52px; height:52px; border-radius:6px; background:#d1c4b9;
     display:flex; align-items:center; justify-content:center; flex-shrink:0; }}
 .detail-figure-icon .material-icons {{ font-size:22px; color:#574329; }}
 .detail-figure-info {{ flex:1; }}
@@ -901,35 +901,47 @@ function showDetail(idx) {{
 
     // Figure portrait images (Wikimedia Commons, public domain)
     const figureImages = {{
-        'Louis VI le Gros': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Louis_VI_of_France.jpg/200px-Louis_VI_of_France.jpg',
-        'Louis IX': 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Saintlouis_%28cropped%29.jpg/200px-Saintlouis_%28cropped%29.jpg',
-        'Philippe le Bel': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Philip_iv_and_family._2_%28detail_crop%29.jpg/200px-Philip_iv_and_family._2_%28detail_crop%29.jpg',
-        'Philippe Auguste': 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Sceau_de_Philippe_Auguste._-_Archives_Nationales_-_SC-D157.jpg/200px-Sceau_de_Philippe_Auguste._-_Archives_Nationales_-_SC-D157.jpg',
-        'Philippe VI': 'https://upload.wikimedia.org/wikipedia/commons/9/93/Phil6france.jpg',
-        'François Ier': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Fran%C3%A7ois_Ier_Louvre.jpg/200px-Fran%C3%A7ois_Ier_Louvre.jpg',
-        'Henri IV': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Frans_Pourbus_the_Younger_%28Antwerp_1569_-_Paris_1622%29_-_Henri_IV%2C_King_of_France_%281553-1610%29_-_RCIN_402972_-_Royal_Collection.jpg/200px-Frans_Pourbus_the_Younger_%28Antwerp_1569_-_Paris_1622%29_-_Henri_IV%2C_King_of_France_%281553-1610%29_-_RCIN_402972_-_Royal_Collection.jpg',
-        'Louis XIV': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Portrait_of_Louis_XIV_of_France_in_Coronation_Robes_%28by_Hyacinthe_Rigaud%29_-_Louvre_Museum.jpg/200px-Portrait_of_Louis_XIV_of_France_in_Coronation_Robes_%28by_Hyacinthe_Rigaud%29_-_Louvre_Museum.jpg',
-        'Bonaparte': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Jacques-Louis_David_-_The_Emperor_Napoleon_in_His_Study_at_the_Tuileries_-_Google_Art_Project.jpg/200px-Jacques-Louis_David_-_The_Emperor_Napoleon_in_His_Study_at_the_Tuileries_-_Google_Art_Project.jpg',
-        'Henri VII': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Enrique_VII_de_Inglaterra%2C_por_un_artista_an%C3%B3nimo.jpg/200px-Enrique_VII_de_Inglaterra%2C_por_un_artista_an%C3%B3nimo.jpg',
-        'Henri VIII': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/After_Hans_Holbein_the_Younger_-_Portrait_of_Henry_VIII_-_Google_Art_Project.jpg/200px-After_Hans_Holbein_the_Younger_-_Portrait_of_Henry_VIII_-_Google_Art_Project.jpg',
-        'Élisabeth Ière': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Darnley_stage_3.jpg/200px-Darnley_stage_3.jpg',
-        'Oliver Cromwell': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Oliver_Cromwell_by_Samuel_Cooper.jpg/200px-Oliver_Cromwell_by_Samuel_Cooper.jpg',
-        'Cromwell': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Oliver_Cromwell_by_Samuel_Cooper.jpg/200px-Oliver_Cromwell_by_Samuel_Cooper.jpg',
-        'Saül': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Saul_1878.jpg/200px-Saul_1878.jpg',
-        'Salomon': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Simeon_Solomon%2C_King_Solomon%2C_1872_or_1874%2C_NGA_76152_%28cropped%29.jpg/200px-Simeon_Solomon%2C_King_Solomon%2C_1872_or_1874%2C_NGA_76152_%28cropped%29.jpg',
-        'Hérode': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Herode-el-Grande.jpg/200px-Herode-el-Grande.jpg',
-        'Maximilien Ier': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Joachim_von_Sandrart_-_Maximilian_I%2C_Elector_of_Bavaria.jpg/200px-Joachim_von_Sandrart_-_Maximilian_I%2C_Elector_of_Bavaria.jpg',
-        'Max-Emmanuel': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/M%C3%B6ller_-_Maximilian_II_Emanuel_of_Bavaria_-_Torre_Abbey.png/200px-M%C3%B6ller_-_Maximilian_II_Emanuel_of_Bavaria_-_Torre_Abbey.png',
-        'Maximilien III Joseph': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Maximilian_III_Joseph_of_Bavaria_by_Georges_Desmar%C3%A9es.jpg/200px-Maximilian_III_Joseph_of_Bavaria_by_Georges_Desmar%C3%A9es.jpg',
-        'Louis Ier': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Joseph_Karl_Stieler_-_King_Ludwig_I_in_his_Coronation_Robes_-_WGA21796.jpg/200px-Joseph_Karl_Stieler_-_King_Ludwig_I_in_his_Coronation_Robes_-_WGA21796.jpg',
-        'Kurt Eisner': 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/KurtEisner1919.jpg/200px-KurtEisner1919.jpg',
-        'Francesco Foscari': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/%28Venice%29_Portrait_of_the_Venecian_doge_Francesco_Foscari_by_Lazzaro_Bastiani_-_Correr_Museum.jpg/200px-%28Venice%29_Portrait_of_the_Venecian_doge_Francesco_Foscari_by_Lazzaro_Bastiani_-_Correr_Museum.jpg',
-        'Francesco Morosini': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Portrait_of_Doge_Francesco_Morosini_%281619%E2%80%931694%29%2C_half-length%2C_in_armour_.jpg/200px-Portrait_of_Doge_Francesco_Morosini_%281619%E2%80%931694%29%2C_half-length%2C_in_armour_.jpg',
-        'Daniele Manin': 'https://upload.wikimedia.org/wikipedia/commons/0/06/Daniele_Manin.jpg',
-        'La Fronde': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Combat_du_faubourg_Saint-Antoine_%282_July_1652%3B_French_School%2C_17th_century%29.jpg/200px-Combat_du_faubourg_Saint-Antoine_%282_July_1652%3B_French_School%2C_17th_century%29.jpg',
-        'Guillaume le Conquérant': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/William_I_of_England.jpg/200px-William_I_of_England.jpg',
-        'Édouard Ier': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Edwardus_I_-_British_Library_Royal_20_A_ii_f10_%28detail%29.jpg/200px-Edwardus_I_-_British_Library_Royal_20_A_ii_f10_%28detail%29.jpg',
-        'Édouard III': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Edward_III_%28de_Bruges%29.jpg/200px-Edward_III_%28de_Bruges%29.jpg',
+        // France
+        'Louis VI le Gros': 'images/france/louis-vi-le-gros.jpg',
+        'Louis IX': 'images/france/louis-ix.jpg',
+        'Philippe le Bel': 'images/france/philippe-le-bel.jpg',
+        'Philippe Auguste': 'images/france/philippe-auguste.jpg',
+        'Philippe VI': 'images/france/philippe-vi.jpg',
+        'François Ier': 'images/france/francois-ier.jpg',
+        'Henri IV': 'images/france/henri-iv.jpg',
+        'Louis XIV': 'images/france/louis-xiv.jpg',
+        'Bonaparte': 'images/france/bonaparte.jpg',
+        'La Fronde': 'images/france/la-fronde.jpg',
+        'Loi salique': 'images/france/loi-salique.png',
+        'Traité de Troyes': 'images/france/traite-de-troyes.jpg',
+        'Chinon': 'images/france/chinon.jpg',
+        'Charles VII': 'images/france/charles-vii.jpg',
+        'Guerres de Religion': 'images/france/guerres-de-religion.jpg',
+        'Polysynodie': 'images/france/polysynodie.jpg',
+        'Robespierre': 'images/france/robespierre.jpg',
+        // Angleterre
+        'Henri VII': 'images/angleterre/henri-vii.jpg',
+        'Henri VIII': 'images/angleterre/henri-viii.jpg',
+        'Élisabeth Ière': 'images/angleterre/elisabeth-iere.jpg',
+        'Oliver Cromwell': 'images/angleterre/oliver-cromwell.jpg',
+        'Cromwell': 'images/angleterre/oliver-cromwell.jpg',
+        'Guillaume le Conquérant': 'images/angleterre/guillaume-le-conquerant.jpg',
+        'Édouard Ier': 'images/angleterre/edouard-ier.jpg',
+        'Édouard III': 'images/angleterre/edouard-iii.jpg',
+        // Israël
+        'Saül': 'images/israel/saul.jpg',
+        'Salomon': 'images/israel/salomon.jpg',
+        'Hérode': 'images/israel/herode.jpg',
+        // Bavière
+        'Maximilien Ier': 'images/baviere/maximilien-ier.jpg',
+        'Max-Emmanuel': 'images/baviere/max-emmanuel.png',
+        'Maximilien III Joseph': 'images/baviere/maximilien-iii-joseph.jpg',
+        'Louis Ier': 'images/baviere/louis-ier.jpg',
+        'Kurt Eisner': 'images/baviere/kurt-eisner.jpg',
+        // Venise
+        'Francesco Foscari': 'images/venise/francesco-foscari.jpg',
+        'Francesco Morosini': 'images/venise/francesco-morosini.jpg',
+        'Daniele Manin': 'images/venise/daniele-manin.jpg',
     }};
 
     // Concept descriptions for subtitles
